@@ -38,17 +38,8 @@ const Register = () => {
 
   const handleRegister = async () => {
     try {
-      let response = await Service.register(name, email, password, passwordConfirmation);
+      
 
-      if (response.status == 422) {
-        setErrors(response.data.errors);
-      }
-
-      /*setName('');
-      setEmail('');
-      setPassword('');
-      setPasswordConfirmation('');
-      navigate('/login');*/
     } catch(e) {
       console.log(e);
     }

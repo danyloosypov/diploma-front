@@ -9,13 +9,15 @@ import {
 }
 from 'mdb-react-ui-kit';
 import Service from '../utils/Service';
-import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import useAuthContext from '../context/AuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState([]);
-  const navigate = useNavigate();
+  //const [errors, setErrors] = useState([]);
+  const { login, errors } = useAuthContext();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -25,23 +27,9 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-
-
   const handleLogin = async () => {
-    try {
-      
-      let response = await Service.login(email, password);
-      
-      if (response.status == 422) {
-        setErrors(response.data.errors);
-      }
-     /* setEmail('');
-      setPassword('');
-
-      navigate('/');*/
-    } catch(e) {
-      console.log(e);
-    }
+    login(email, password);
+    console.log(1);
   };
 
 
@@ -83,6 +71,8 @@ const Login = () => {
         </MDBCol>
 
       </MDBRow>
+
+      <ToastContainer />
 
     </MDBContainer>
   )

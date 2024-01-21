@@ -17,6 +17,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
   const handleNameChange = (e) => {
@@ -37,7 +38,11 @@ const Register = () => {
 
   const handleRegister = async () => {
     try {
-      await Service.register(name, email, password, passwordConfirmation);
+      let response = await Service.register(name, email, password, passwordConfirmation);
+
+      if (response.status == 422) {
+        setErrors(response.data.errors);
+      }
 
       /*setName('');
       setEmail('');
@@ -65,9 +70,21 @@ const Register = () => {
             <h3 className="fw-normal mb-3 ps-5 pb-3" style={{letterSpacing: '1px'}}>Sign Up</h3>
 
             <MDBInput wrapperClass='mb-4 mx-5 w-100' label='name' id='formControlLg' type='text' size="lg" onChange={handleNameChange} />
+            {errors.name && <div className='mb-4 mx-5 w-100 error-text'>
+              {errors.name[0]}
+            </div>}
             <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Email address' id='formControlLg' type='email' size="lg" onChange={handleEmailChange} />
+            {errors.email && <div className='mb-4 mx-5 w-100 error-text'>
+              {errors.email[0]}
+            </div>}
             <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Password' id='formControlLg' type='password' size="lg" onChange={handlePasswordChange} />
+            {errors.password && <div className='mb-4 mx-5 w-100 error-text'>
+              {errors.password[0]}
+            </div>}
             <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Password Confirmation' id='formControlLg' type='password' size="lg" onChange={handlePasswordConfirmationChange} />
+            {errors.password && <div className='mb-4 mx-5 w-100 error-text'>
+              {errors.password[1]}
+            </div>}
 
             <MDBBtn className="mb-4 px-5 mx-5 w-100" color='info' size='lg' onClick={handleRegister} >Sign up</MDBBtn>
             <p className='ms-5'>Have an account? <a href="#!" class="link-info">Login here</a></p>

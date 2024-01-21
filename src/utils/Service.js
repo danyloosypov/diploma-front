@@ -34,6 +34,7 @@ export default class Service {
 
   static async register(name, email, password, password_confirmation) {
     try {
+        await getCSRFToken();
         const response = await axiosInstance.post('/register', {
             name,
             email,
@@ -42,7 +43,7 @@ export default class Service {
         });
         return response.data;
     } catch (error) {
-        console.error(error);
+        return error.response;
     }
   }
 

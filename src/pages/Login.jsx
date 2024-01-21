@@ -31,6 +31,7 @@ const Login = () => {
     try {
       
       let response = await Service.login(email, password);
+      
       if (response.status == 422) {
         setErrors(response.data.errors);
       }

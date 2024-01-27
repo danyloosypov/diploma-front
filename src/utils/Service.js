@@ -23,7 +23,6 @@ export default class Service {
                 email,
                 password,
             });
-            console.log(response)
             return response;
         } catch (error) {
             return error.response;
@@ -47,8 +46,38 @@ export default class Service {
 
     static async getUser() {
         try {
-            console.log("get user")
             const response = await axiosInstance.get('/api/user');
+            return response;
+        } catch (error) {
+            return error.response;
+        }
+    }
+
+    static logout() {
+        axiosInstance.post('/logout');
+    }
+
+    static async forgotPassword(email) {
+        try {
+            await getCSRFToken();
+            const response = await axiosInstance.post('/forgot-password', {
+                email
+            });
+            return response;
+        } catch (error) {
+            return error.response;
+        }
+    }
+
+    static async resetPassword(email, token, password, password_confirmation) {
+        try {
+            await getCSRFToken();
+            const response = await axiosInstance.post('/reset-password', {
+                email,
+                token,
+                password,
+                password_confirmation,
+            });
             return response;
         } catch (error) {
             return error.response;

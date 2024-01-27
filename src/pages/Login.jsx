@@ -8,8 +8,6 @@ import {
   MDBInput
 }
 from 'mdb-react-ui-kit';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import useAuthContext from '../context/AuthContext';
 
 const Login = () => {
@@ -35,11 +33,6 @@ const Login = () => {
       <MDBRow>
 
         <MDBCol sm='6'>
-
-          <div className='d-flex flex-row ps-5 pt-5'>
-            <MDBIcon fas icon="strikethrough fa-3x me-3" style={{ color: '#709085' }}/>
-            <span className="h1 fw-bold mb-0">Strike</span>
-          </div>
 
           <div className='d-flex flex-column justify-content-center h-custom-2 w-75 pt-4'>
 
@@ -68,9 +61,6 @@ const Login = () => {
         </MDBCol>
 
       </MDBRow>
-
-      <ToastContainer />
-
     </MDBContainer>
   )
 }

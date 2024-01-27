@@ -3,13 +3,9 @@ import Body from "../components/Body";
 import useAuthContext from '../context/AuthContext';
 
 const Account = () => {
-  const {user, getUser} = useAuthContext();
+  const {user} = useAuthContext();
 
-  useEffect(() => {
-    if(!user) {
-      getUser();
-    }
-  }, []);
+
 
   return (
     <div>

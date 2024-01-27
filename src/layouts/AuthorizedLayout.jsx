@@ -1,16 +1,12 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import { Navigate, Outlet } from 'react-router-dom';
+import useAuthContext from '../context/AuthContext';
 
 const AuthorizedLayout = () => {
-  return (
-    <div>
-      <Header />
-      <Outlet />
-      <Footer />
-    </div>
-  )
+  const {user} = useAuthContext();
+  console.log("authlayout", user);
+
+  return user ? <Outlet /> : <Navigate to="/login" />;
 }
 
 export default AuthorizedLayout

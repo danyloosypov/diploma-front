@@ -8,7 +8,6 @@ import {
   MDBInput
 }
 from 'mdb-react-ui-kit';
-import Service from '../utils/Service';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import useAuthContext from '../context/AuthContext';
@@ -16,7 +15,6 @@ import useAuthContext from '../context/AuthContext';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  //const [errors, setErrors] = useState([]);
   const { login, errors } = useAuthContext();
 
   const handleEmailChange = (e) => {
@@ -29,7 +27,6 @@ const Login = () => {
 
   const handleLogin = async () => {
     login(email, password);
-    console.log(1);
   };
 
 

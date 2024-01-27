@@ -8,8 +8,7 @@ import {
   MDBInput
 }
 from 'mdb-react-ui-kit';
-import Service from '../utils/Service';
-import { useNavigate } from 'react-router-dom';
+import useAuthContext from '../context/AuthContext';
 
 
 const Register = () => {
@@ -17,8 +16,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const [errors, setErrors] = useState([]);
-  const navigate = useNavigate();
+  const { register, errors } = useAuthContext();
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -37,12 +35,7 @@ const Register = () => {
   };
 
   const handleRegister = async () => {
-    try {
-      
-
-    } catch(e) {
-      console.log(e);
-    }
+    register(name, email, password, passwordConfirmation);
   };
 
   return (

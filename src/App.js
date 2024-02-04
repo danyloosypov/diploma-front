@@ -14,6 +14,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ResetPassword from "./pages/ResetPassword";
+import Help from "./pages/Help";
 
 function App() {
     const {user} = useAuthContext();
@@ -25,6 +26,7 @@ function App() {
         <Route element={<AuthorizedLayout />}>
           <Route path="/" element={<Account />} />
           <Route path="/competition" element={<Competition />} />
+          <Route path="/help" element={<Help />} />
         </Route>
         <Route element={<GuestLayout />}>
           <Route path="/login" element={<Login />} />

@@ -13,6 +13,7 @@ import {
   MDBBtn
 } from 'mdb-react-ui-kit';
 import { FaBars, FaTimes } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 
 export default function Header({user}) {
@@ -32,10 +33,9 @@ export default function Header({user}) {
           <span className="h1 fw-bold mb-0">Strike</span>
         </div>
         <nav ref={navRef}>
-          <a href="/#">Home</a>
-          <a href="/#">My work</a>
-          <a href="/#">Blog</a>
-          <a href="/#">About me</a>
+          <Link to="/">Account</Link>
+          <Link to="/competition">Competitions</Link>
+          <Link to="/help">Help</Link>
           <button
             className="nav-btn nav-close-btn"
             onClick={showNavbar}>

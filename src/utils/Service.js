@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:8000';
+const baseURL = 'http://192.168.0.105:8000';
 
 const axiosInstance = axios.create({
   baseURL,
@@ -53,6 +53,15 @@ export default class Service {
         }
     }
 
+    static async getToken() {
+        try {
+            const response = await axiosInstance.post('/api/tokens/create');
+            return response.data;
+        } catch (error) {
+            return error.response;
+        }
+    }
+
     static logout() {
         axiosInstance.post('/logout');
     }
@@ -78,6 +87,16 @@ export default class Service {
                 password,
                 password_confirmation,
             });
+            return response;
+        } catch (error) {
+            return error.response;
+        }
+    }
+
+    static async deleteAccount() {
+        try {
+            await getCSRFToken();
+            const response = await axiosInstance.post('/trash-account');
             return response;
         } catch (error) {
             return error.response;

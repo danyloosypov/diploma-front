@@ -1,5 +1,6 @@
 import React from 'react'
 import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -39,23 +40,17 @@ const Footer = () => {
             <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
               <h6 className='text-uppercase fw-bold mb-4'>Links</h6>
               <p>
-                <a href='#!' className='text-reset'>
-                  Competitions
-                </a>
+                <Link className='text-reset' to="/competition">Competitions</Link>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
-                  Account
-                </a>
+                <Link className='text-reset' to="/">Account</Link>
               </p>
             </MDBCol>
 
             <MDBCol md="3" lg="2" xl="2" className='mx-auto mb-4'>
               <h6 className='text-uppercase fw-bold mb-4'>Useful links</h6>
               <p>
-                <a href='#!' className='text-reset'>
-                  Help
-                </a>
+                <Link className='text-reset' to="/help">Help</Link>
               </p>
             </MDBCol>
 

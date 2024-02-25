@@ -15,9 +15,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ResetPassword from "./pages/ResetPassword";
 import Help from "./pages/Help";
+import Loader from "./components/Loader/Loader";
+import { useLoadingContext } from "./context/LoadingContext";
 
 function App() {
     const {user} = useAuthContext();
+    const { loading } = useLoadingContext();
 
     return (
     <div className="App">
@@ -37,6 +40,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
+      {loading && <Loader />}
       <ToastContainer />
     </div>
   );

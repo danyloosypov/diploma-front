@@ -14,6 +14,7 @@ import {
 } from 'mdb-react-ui-kit';
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import LanguagePicker from './LanguagePicker/LanguagePicker';
 
 
 export default function Header({user}) {
@@ -36,6 +37,7 @@ export default function Header({user}) {
           <Link to="/">Account</Link>
           <Link to="/competition">Competitions</Link>
           <Link to="/help">Help</Link>
+          <LanguagePicker />
           <button
             className="nav-btn nav-close-btn"
             onClick={showNavbar}>

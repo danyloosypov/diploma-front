@@ -69,7 +69,7 @@ const Tabs = () => {
         </MDBTabsPane>
         <MDBTabsPane open={justifyActive === 'Settings'}>
           <div>
-              <label for="pass">Enter password: </label>
+              <label htmlFor="pass">Enter password: </label>
               <input
                   id="pass"
                   type={
@@ -83,7 +83,7 @@ const Tabs = () => {
               />
               <br />
               <br />
-              <label for="check">Show Password</label>
+              <label htmlFor="check">Show Password</label>
               <input
                   id="check"
                   type="checkbox"

@@ -7,6 +7,8 @@ const axiosInstance = axios.create({
   withCredentials: true, 
 });
 
+axiosInstance.defaults.headers.common['Accept'] = 'application/json';
+
 export const getCSRFToken = async () => {
     try {
         await axiosInstance.get('/sanctum/csrf-cookie');
@@ -97,6 +99,47 @@ export default class Service {
         try {
             await getCSRFToken();
             const response = await axiosInstance.post('/trash-account');
+            return response;
+        } catch (error) {
+            return error.response;
+        }
+    }
+
+    static async getGameRoles() {
+        try {
+            await getCSRFToken();
+            const response = await axiosInstance.get('/api/game-roles');
+            return response.data;
+        } catch (error) {
+            return error.response;
+        }
+    }
+
+    static async getGoals() {
+        try {
+            await getCSRFToken();
+            const response = await axiosInstance.get('/api/goals');
+            return response.data;
+        } catch (error) {
+            return error.response;
+        }
+    }
+
+    static async getUsers() {
+        try {
+            await getCSRFToken();
+            const response = await axiosInstance.get('/api/users');
+            return response.data;
+        } catch (error) {
+            return error.response;
+        }
+    }
+
+    static async createMatch(data) {
+        try {
+            await getCSRFToken();
+            console.log(data);
+            const response = await axiosInstance.postForm('/api/competition', data);
             return response;
         } catch (error) {
             return error.response;

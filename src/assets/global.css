@@ -122,3 +122,8 @@ nav {
 .error-text {
 	color: red;
 }
+
+.dropdown-item {
+	margin: 0;
+}
+

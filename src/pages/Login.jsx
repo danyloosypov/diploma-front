@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MDBBtn,
   MDBContainer,
@@ -9,11 +9,13 @@ import {
 }
 from 'mdb-react-ui-kit';
 import useAuthContext from '../context/AuthContext';
+import { useLoadingContext } from '../context/LoadingContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { login, errors } = useAuthContext();
+  const { startLoading, stopLoading } = useLoadingContext();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -24,14 +26,14 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
+    startLoading();
     login(email, password);
+    stopLoading();
   };
-
 
   return (
     <MDBContainer fluid>
       <MDBRow>
-
         <MDBCol sm='6'>
 
           <div className='d-flex flex-column justify-content-center h-custom-2 w-75 pt-4'>

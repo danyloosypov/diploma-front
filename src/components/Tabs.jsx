@@ -52,7 +52,6 @@ const Tabs = () => {
         <MDBTabsItem>
           <MDBTabsLink onClick={() => handleJustifyClick('Personal data')} active={justifyActive === 'Personal data'}>
             Personal data
-            <Body />
           </MDBTabsLink>
         </MDBTabsItem>
         <MDBTabsItem>
@@ -65,7 +64,8 @@ const Tabs = () => {
       <MDBTabsContent>
         <MDBTabsPane open={justifyActive === 'My Competitions'}>
           Tab 1 content</MDBTabsPane>
-        <MDBTabsPane open={justifyActive === 'Personal data'}>Tab 2 content
+        <MDBTabsPane open={justifyActive === 'Personal data'}>
+          <Body />
         </MDBTabsPane>
         <MDBTabsPane open={justifyActive === 'Settings'}>
           <div>

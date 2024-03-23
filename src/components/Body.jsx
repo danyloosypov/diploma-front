@@ -1,8 +1,6 @@
-import { Suspense } from 'react';
-import {Canvas, useFrame, useThree} from "@react-three/fiber";
-import {OrbitControls, Stage, PresentationControls, useGLTF, Box, Text} from "@react-three/drei";
-import React, { useRef, useEffect, useState } from "react";
-import { Vector3, Mesh, Spherical } from "three";
+import {Canvas} from "@react-three/fiber";
+import {Stage, PresentationControls, useGLTF, Box, Text} from "@react-three/drei";
+import React, { useState } from "react";
 
 function Model(props) {
   const {scene} = useGLTF("../Test/body.glb");
@@ -14,8 +12,8 @@ function Body() {
   const [isRed, setIsRed] = useState(true);
 
   return (
-    <div className="App">
-        <Canvas dpr={[1, 2]} shadows camera={{fov:45}} style={{"position": "absolute", "width": "500px"}}>
+    <div>
+        <Canvas dpr={[1, 2]} shadows camera={{fov:45}} style={{"height": "800px", "width": "500px"}}>
           <color attach="background" args={["lightblue"]} />
           <PresentationControls speed={1.5} global zoom={1} polar={[-0.1, Math.PI /4]}>
             <Stage environment={null}>

@@ -13,18 +13,23 @@ import {
   MDBBtn
 } from 'mdb-react-ui-kit';
 import { FaBars, FaTimes } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import LanguagePicker from './LanguagePicker/LanguagePicker';
-
+import useAuthContext from '../context/AuthContext';
 
 export default function Header({user}) {
   const navRef = useRef();
+  const { logout } = useAuthContext();
 
 	const showNavbar = () => {
 		navRef.current.classList.toggle(
 			"responsive_nav"
 		);
 	};
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <div>
@@ -43,6 +48,11 @@ export default function Header({user}) {
             onClick={showNavbar}>
             <FaTimes />
           </button>
+          {user && (
+            <div className="text-center">
+              <button className="btn btn-primary" onClick={handleLogout}>Log Out</button>
+            </div>
+          )}
         </nav>
         <button
           className="nav-btn"

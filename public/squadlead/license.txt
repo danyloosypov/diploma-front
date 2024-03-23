@@ -1,0 +1,11 @@
+Model Information:
+* title:	Ukrainian Soldier (optimized for games)
+* source:	https://sketchfab.com/3d-models/ukrainian-soldier-optimized-for-games-c2fecaf558424216baa69f3a15f72fd1
+* author:	Kovname (https://sketchfab.com/Kovname)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Ukrainian Soldier (optimized for games)" (https://sketchfab.com/3d-models/ukrainian-soldier-optimized-for-games-c2fecaf558424216baa69f3a15f72fd1) by Kovname (https://sketchfab.com/Kovname) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

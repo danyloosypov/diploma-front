@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Service from '../utils/Service';
 import { useTranslation } from "react-i18next";
 import { MDBAccordion, MDBAccordionItem } from 'mdb-react-ui-kit';
+import SquadLeadScene from '../components/SquadLeadScene';
+import RiflemanScene from '../components/RiflemanScene';
+import ScoutScene from '../components/ScoutScene';
+import SniperScene from '../components/SniperScene';
 
 const Help = () => {
   const [gameRoles, setGameRoles] = useState([]);
@@ -64,6 +68,10 @@ const Help = () => {
           </MDBAccordionItem>
         ))}
       </MDBAccordion>
+      <SquadLeadScene />
+      <RiflemanScene />
+      <ScoutScene />
+      <SniperScene />
     </div>
   );
 };

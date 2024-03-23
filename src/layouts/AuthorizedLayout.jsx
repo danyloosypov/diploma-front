@@ -4,7 +4,6 @@ import useAuthContext from '../context/AuthContext';
 
 const AuthorizedLayout = () => {
   const {user} = useAuthContext();
-  console.log("authlayout", user);
 
   return user ? <Outlet /> : <Navigate to="/login" />;
 }

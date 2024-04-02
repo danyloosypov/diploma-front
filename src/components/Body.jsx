@@ -12,8 +12,8 @@ function Body() {
   const [isRed, setIsRed] = useState(true);
 
   return (
-    <div>
-        <Canvas dpr={[1, 2]} shadows camera={{fov:45}} style={{"height": "800px", "width": "500px"}}>
+    <div className="body-model-container">
+        <Canvas dpr={[1, 2]} shadows camera={{fov:45}} style={{"height": "100%", "width": "100%"}}>
           <color attach="background" args={["lightblue"]} />
           <PresentationControls speed={1.5} global zoom={1} polar={[-0.1, Math.PI /4]}>
             <Stage environment={null}>

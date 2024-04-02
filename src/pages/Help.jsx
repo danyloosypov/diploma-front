@@ -46,19 +46,37 @@ const Help = () => {
     return role.description.en; 
   };
 
+  const renderSceneComponent = (role) => {
+    const modelName = role?.['3d_model'] || ''; // Accessing the 3d_model property
+    if (modelName.includes('SquadLead')) {
+      return <SquadLeadScene />;
+    } else if (modelName.includes('Scout')) {
+      return <ScoutScene />;
+    } else if (modelName.includes('Sniper')) {
+      return <SniperScene />;
+    } else if (modelName.includes('Scout')) {
+      return <ScoutScene />;
+    } else {
+      return <RiflemanScene />;
+    }
+  };
+
   return (
-    <div>
+    <div className='container' style={{"margin-top": "40px", "margin-bottom": "40px"}}>
       <h2>
         Game roles
       </h2>
       <MDBAccordion initialActive={1}>
         {gameRoles.map((role, index) => (
           <MDBAccordionItem key={index} collapseId={index + 1} headerTitle={getTitleByLanguage(role)}>
-            <div dangerouslySetInnerHTML={{ __html: getDescriptionByLanguage(role) }} />
+            <div className='accordion-item-content'>
+              <div dangerouslySetInnerHTML={{ __html: getDescriptionByLanguage(role) }} />
+              {renderSceneComponent(role)}
+            </div>
           </MDBAccordionItem>
         ))}
       </MDBAccordion>
-      <h2>
+      <h2 style={{"margin-top": "40px"}}>
         Goals
       </h2>
       <MDBAccordion initialActive={1}>
@@ -68,10 +86,7 @@ const Help = () => {
           </MDBAccordionItem>
         ))}
       </MDBAccordion>
-      <SquadLeadScene />
-      <RiflemanScene />
-      <ScoutScene />
-      <SniperScene />
+      
     </div>
   );
 };

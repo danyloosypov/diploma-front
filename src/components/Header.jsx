@@ -1,25 +1,21 @@
 import React, { useState } from 'react';
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useRef } from "react";
 import {
-  MDBNavbar,
-  MDBNavbarNav,
-  MDBNavbarItem,
-  MDBNavbarLink,
-  MDBNavbarToggler,
-  MDBContainer,
   MDBIcon,
-  MDBCollapse,
   MDBBtn
 } from 'mdb-react-ui-kit';
 import { FaBars, FaTimes } from "react-icons/fa";
-import { Link, redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LanguagePicker from './LanguagePicker/LanguagePicker';
 import useAuthContext from '../context/AuthContext';
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Header({user}) {
   const navRef = useRef();
   const { logout } = useAuthContext();
+  const navigate = useNavigate();
+  const [t, i18n] = useTranslation("global");
 
 	const showNavbar = () => {
 		navRef.current.classList.toggle(
@@ -29,7 +25,14 @@ export default function Header({user}) {
 
   const handleLogout = () => {
     logout();
+    showNavbar();
   };
+
+  const handleLogin = () => {
+    navigate("/login");
+    showNavbar();
+  };
+
 
   return (
     <div>
@@ -39,18 +42,27 @@ export default function Header({user}) {
           <span className="h1 fw-bold mb-0">Strike</span>
         </div>
         <nav ref={navRef}>
-          <Link to="/">Account</Link>
-          <Link to="/competition">Competitions</Link>
-          <Link to="/help">Help</Link>
+          {user && (
+            <>
+              <Link to="/" onClick={showNavbar}>Account</Link>
+              <Link to="/competition" onClick={showNavbar}>Current competition</Link>
+            </>
+          )}
+          
+          <Link to="/help" onClick={showNavbar}>Help</Link>
           <LanguagePicker />
           <button
             className="nav-btn nav-close-btn"
             onClick={showNavbar}>
             <FaTimes />
           </button>
-          {user && (
+          {user ? (
             <div className="text-center">
-              <button className="btn btn-primary" onClick={handleLogout}>Log Out</button>
+              <button className="btn btn-outline-primary" onClick={handleLogout}>Log Out</button>
+            </div>
+          ) : (
+            <div className="text-center">
+              <button className="btn btn-primary" onClick={handleLogin}>Log In</button>
             </div>
           )}
         </nav>
@@ -71,7 +83,7 @@ export default function Header({user}) {
                 <h1 className='mb-3'>Heading</h1>
                 <h4 className='mb-3'>Subheading</h4>
                 <MDBBtn tag="a" outline size="lg">
-                  Call to action
+                  <Link className='header-banner-btn' to="/competition">Go to match</Link>
                 </MDBBtn>
               </div>
             </div>

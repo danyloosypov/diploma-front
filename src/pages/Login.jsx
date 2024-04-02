@@ -4,12 +4,12 @@ import {
   MDBContainer,
   MDBRow,
   MDBCol,
-  MDBIcon,
   MDBInput
 }
 from 'mdb-react-ui-kit';
 import useAuthContext from '../context/AuthContext';
 import { useLoadingContext } from '../context/LoadingContext';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -50,8 +50,13 @@ const Login = () => {
             </div>}
 
             <MDBBtn className="mb-4 px-5 mx-5 w-100" color='info' size='lg' onClick={handleLogin}>Login</MDBBtn>
-            <p className="small mb-5 pb-lg-3 ms-5"><a className="text-muted" href="#!">Forgot password?</a></p>
-            <p className='ms-5'>Don't have an account? <a href="#!" className="link-info">Register here</a></p>
+            <p className="small mb-5 pb-lg-3 ms-5">
+              <Link className="text-muted" to="/forgot-password">Forgot password?</Link>
+            </p>
+            <p className='ms-5'>
+              Don't have an account? 
+              <Link className="link-info" to="/register">Register here</Link>
+            </p>
 
           </div>
 

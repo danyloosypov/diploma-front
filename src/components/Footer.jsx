@@ -2,7 +2,7 @@ import React from 'react'
 import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
 
-const Footer = () => {
+const Footer = ({user}) => {
   return (
     <MDBFooter bgColor='light' className='text-center text-lg-start text-muted'>
       <section className='container d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
@@ -36,16 +36,19 @@ const Footer = () => {
                 consectetur adipisicing elit.
               </p>
             </MDBCol>
-
-            <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
-              <h6 className='text-uppercase fw-bold mb-4'>Links</h6>
-              <p>
-                <Link className='text-reset' to="/competition">Competitions</Link>
-              </p>
-              <p>
-                <Link className='text-reset' to="/">Account</Link>
-              </p>
-            </MDBCol>
+            
+            {user && (
+              <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
+                <h6 className='text-uppercase fw-bold mb-4'>Links</h6>
+                <p>
+                  <Link className='text-reset' to="/competition">Current competition</Link>
+                </p>
+                <p>
+                  <Link className='text-reset' to="/">Account</Link>
+                </p>
+              </MDBCol>
+            )}
+            
 
             <MDBCol md="3" lg="2" xl="2" className='mx-auto mb-4'>
               <h6 className='text-uppercase fw-bold mb-4'>Useful links</h6>

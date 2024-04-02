@@ -9,7 +9,7 @@ import {
 }
 from 'mdb-react-ui-kit';
 import useAuthContext from '../context/AuthContext';
-
+import { Link } from 'react-router-dom';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -71,7 +71,10 @@ const Register = () => {
             </div>}
 
             <MDBBtn className="mb-4 px-5 mx-5 w-100" color='info' size='lg' onClick={handleRegister} >Sign up</MDBBtn>
-            <p className='ms-5'>Have an account? <a href="#!" class="link-info">Login here</a></p>
+            <p className='ms-5'>
+              Have an account? 
+              <Link className="text-muted" to="/login">Login</Link>
+            </p>
           </div>
 
         </MDBCol>

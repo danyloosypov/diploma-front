@@ -26,21 +26,20 @@ function App() {
     <div className="App">
       <Header user={user} />
       <Routes>
+        <Route path="/help" element={<Help />} />
         <Route element={<AuthorizedLayout />}>
           <Route path="/" element={<Account />} />
           <Route path="/competition" element={<Competition />} />
-          <Route path="/help" element={<Help />} />
         </Route>
         <Route element={<GuestLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/help" element={<Help />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/password-reset/:token" element={<ResetPassword />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
+      <Footer user={user} />
       {loading && <Loader />}
       <ToastContainer />
     </div>

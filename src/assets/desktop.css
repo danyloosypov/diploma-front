@@ -1,0 +1,278 @@
+.section-404{
+    padding: 4rem 2rem;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section-404 .error{
+    font-size: 150px;
+    color: #008B62;
+    text-shadow: 
+    1px 1px 1px #00593E,    
+    2px 2px 1px #00593E,
+    3px 3px 1px #00593E,
+    4px 4px 1px #00593E,
+    5px 5px 1px #00593E,
+    6px 6px 1px #00593E,
+    7px 7px 1px #00593E,
+    8px 8px 1px #00593E,
+    25px 25px 8px rgba(0,0,0, 0.2);
+}
+
+.page{
+    margin: 2rem 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #444;
+}
+
+.back-home{
+    display: inline-block;
+    border: 2px solid #222;
+    color: #222;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 0.75rem 1rem 0.6rem;
+    transition: all 0.2s linear;
+    box-shadow: 0 3px 8px rgba(0,0,0, 0.3);
+}
+.back-home:hover{
+    background: #222;
+    color: #ddd;
+}
+
+
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 80px;
+	padding: 0 2rem;
+	background-color: var(--mainColor);
+	color: var(--textColor);
+}
+
+nav a {
+	margin: 0 1rem;
+	color: var(--textColor);
+	text-decoration: none;
+}
+
+nav a:hover {
+	color: var(--secondaryColor);
+}
+
+header .nav-btn {
+	padding: 5px;
+	cursor: pointer;
+	background: transparent;
+	border: none;
+	outline: none;
+	color: var(--textColor);
+	visibility: hidden;
+	opacity: 0;
+	font-size: 1.8rem;
+}
+
+header div,
+nav {
+	display: flex;
+	align-items: center;
+    gap: 15px;
+}
+
+.error-text {
+	color: red;
+}
+
+.dropdown-item {
+	margin: 0;
+}
+
+.accordion-item-content {
+	display: flex;
+    gap: 30px;
+}
+
+.model-scene {
+    max-width: 500px;
+}
+
+header .nav-btn {
+    display: none;
+}
+
+.competition-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 40px 0;
+}
+
+.competition-fields {
+    display: flex;
+    gap: 25px;
+}
+
+.form-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    min-width: 300px;
+}
+
+.team-form-block {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.form-team-member-item {
+    display: flex;
+    gap: 15px;
+}
+
+.form-btn {
+    max-width: 300px;
+}
+
+.css-b62m3t-container {
+    width: 200px;
+}
+
+.form-team-block-btns {
+    display: flex;
+    gap: 15px;
+}
+
+.form-control {
+    /*max-width: 400px;*/
+}
+
+.form-team-item {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.timer-component {
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    padding: 25px 24px;
+    align-items: center;
+    border-radius: 12px;
+    background: var(--background-stroke-light);
+    gap: 30px;
+}
+
+.timer-component-timer {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.timer-digits-wrapper-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.timer-digits-container {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+.timer-digit {
+    display: flex;
+    padding: 18px 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 12px;
+    background: #00917E;
+    backdrop-filter: blur(5.7076921463012695px);
+}
+
+.timer-digit-text {
+    color: #FFF;
+    text-align: center;
+    font-family: Nunito Sans;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 40px;
+    width: 56px;
+}
+
+.current-match {
+    display: flex;
+    flex-direction: column;
+}
+
+.timer-text {
+    text-align: center;
+}
+
+.current-match-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.current-match-info-item {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.current-match-info-item-image {
+    width: 700px;
+}
+
+.current-match-info-item-title {
+    font-weight: bold;
+}
+
+.current-match-team {
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.header-banner-btn {
+    text-decoration: none;
+}
+
+.header-banner-btn:hover {
+    color: white;
+}
+
+.form-item {
+    font-weight: bold;
+}
+
+.form-team-item {
+    font-weight: bold;
+}
+
+.body-model-container {
+    height: 800px;
+    width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.competition-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

@@ -18,6 +18,10 @@ export const getCSRFToken = async () => {
 };
 
 export default class Service {
+    static getBaseURL() {
+        return baseURL;
+    }
+
     static async login(email, password) {
         try {
             await getCSRFToken();
@@ -141,6 +145,30 @@ export default class Service {
             console.log(data);
             const response = await axiosInstance.postForm('/api/competition', data);
             return response;
+        } catch (error) {
+            return error.response;
+        }
+    }
+
+    static async getCurrentMatch() {
+        try {
+            await getCSRFToken();
+            const response = await axiosInstance.get('/api/competitions/current');
+            return response.data;
+        } catch (error) {
+            return error.response;
+        }
+    }
+
+    static async stopMatch(competition_id, time_ended, result) {
+        try {
+            await getCSRFToken();
+            const response = await axiosInstance.post('/api/competition/complete', {
+                competition_id,
+                time_ended,
+                result
+            });
+            return response.data;
         } catch (error) {
             return error.response;
         }

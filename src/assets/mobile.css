@@ -1,0 +1,82 @@
+@media only screen and (max-width: 1024px) {
+	header .nav-btn {
+		visibility: visible;
+		opacity: 1;
+        display: block;
+	}
+
+	header nav {
+		position: absolute;
+		top: -100vh;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 1.5rem;
+		background-color: white;
+		transition: 1s;
+        z-index: 5;
+	}
+
+	header .responsive_nav {
+		transform: translateY(100vh);
+	}
+
+	nav .nav-close-btn {
+		position: absolute;
+		top: 2rem;
+		right: 2rem;
+	}
+
+	nav a {
+		font-size: 1.5rem;
+	}
+}
+
+@media(max-width: 768px) {
+    .accordion-item-content {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+	.competition-fields {
+		flex-direction: column;
+	}
+
+	.form-team-member-item {
+		flex-direction: column;
+	}
+
+	.form-btn {
+		margin: 0 auto;
+    	width: 100%;
+	}
+
+	.current-match-info-item-image {
+		width: 100%;
+	}
+
+	.timer-component-timer {
+		gap: 15px;
+	}
+
+	.timer-digit {
+		padding: 9px 3px;
+	}
+
+	.timer-digit-text {
+		width: 40px;
+		font-size: 24px;
+	}
+
+	.body-model-container {
+		height: 400px;
+		width: 300px;
+		margin: 20px auto;
+		padding: 0px;
+	}
+}

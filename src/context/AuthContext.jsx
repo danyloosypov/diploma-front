@@ -7,6 +7,7 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
+    const [token, setToken] = useState(localStorage.getItem('token') || null);
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
 
@@ -20,6 +21,14 @@ export const AuthProvider = ({children}) => {
         
     }
 
+    const getToken = async () => {
+        let response = await Service.getToken();
+        if (response.token) {
+            setToken(response.token);
+            localStorage.setItem('token', response.token); 
+        } 
+    }
+
     const login = async (email, password) => {
         setErrors([]);
 
@@ -31,6 +40,7 @@ export const AuthProvider = ({children}) => {
 
         if (response.status === 204) {
             await getUser();
+            await getToken();
             navigate('/');
         }
     }
@@ -61,7 +71,7 @@ export const AuthProvider = ({children}) => {
         }
       }, []);
 
-    return <AuthContext.Provider value={{ user, errors, getUser, login, register, logout}}>
+    return <AuthContext.Provider value={{ user, token, errors, getUser, login, register, logout}}>
         {children}
     </AuthContext.Provider>
 }

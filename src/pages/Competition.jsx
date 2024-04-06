@@ -7,6 +7,9 @@ import Body from '../components/Body';
 import useAuthContext from '../context/AuthContext';
 import { toast } from 'react-toastify';
 
+import app from "../firebaseConfig";
+import { getDatabase, ref, get} from "firebase/database";
+
 const Competition = () => {
   const [gameRoles, setGameRoles] = useState([]);
   const [goals, setGoals] = useState([]);
@@ -21,6 +24,8 @@ const Competition = () => {
   const [currentCompetition, setCurrentCompetition] = useState(null);
   const [teamBlocks, setTeamBlocks] = useState([{ teamMembers: [], teamTitle: '' }]);
   const [matchResult, setMatchResult] = useState('');
+  const [myVestId, setMyVestId] = useState(null);
+  const [hits, setHits] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,12 +33,18 @@ const Competition = () => {
         const roles = await Service.getGameRoles();
         const objectives = await Service.getGoals();
         const fetchedUsers = await Service.getUsers();
+        const myVestId = await Service.getVestId();
+
+        if (myVestId.data.vest_id) {
+          setMyVestId(myVestId.data.vest_id);
+        }
 
         const currentMatch = await Service.getCurrentMatch();
         setCurrentCompetition(currentMatch);
         if (currentMatch.game_start) {
           setStartTime(new Date(currentMatch.game_start));
         }
+
         console.log(currentMatch)
 
         const transformedUsers = fetchedUsers.map((user) => ({
@@ -53,9 +64,41 @@ const Competition = () => {
     };
 
     fetchData();
-    //setStartTime(new Date(startTime));  ///////////////
-
   }, []);
+
+  const fetchFirebaseData = async () => {
+    const db = getDatabase(app);
+    const dbRef = ref(db, "vests/" + myVestId);
+    const snapshot = await get(dbRef);
+    if (snapshot.exists()) {
+      const hitsValues = snapshot.val();
+      const sensorData = {}; // New associative array to store sensor data
+  
+      // Loop through keys and extract sensor data
+      for (const key in hitsValues) {
+        if (key.startsWith("sensor")) {
+          // Extract sensor number (assuming format 'sensorXHitsQt')
+          const sensorNumber = key.match(/sensor(\d+)HitsQt/)[1]; // Use regular expression for robust extraction
+  
+          sensorData[sensorNumber] = hitsValues[key]; // Add data to new array with sensor number as key
+        }
+      }
+  
+      setHits(sensorData); // Update state with processed sensor data
+    }
+  };
+  
+
+  useEffect(() => {
+    fetchFirebaseData();
+  
+    const intervalId = setInterval(() => {
+      fetchFirebaseData();
+    }, 5000);
+  
+    return () => clearInterval(intervalId);
+  }, []);
+  
 
   const handleDeleteTeam = (index) => {
     const deletedTeam = teamBlocks[index];
@@ -377,7 +420,7 @@ const Competition = () => {
             <button style={{"margin": "0 auto"}} className='btn btn-warning form-btn' onClick={stopMatch}>Stop match</button>
           )
         }
-        <Body />
+        <Body hits={hits} />
       </div>
       )}
     </div>

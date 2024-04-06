@@ -59,6 +59,15 @@ export default class Service {
         }
     }
 
+    static async getVestId() {
+        try {
+            const response = await axiosInstance.get('/api/get-vest-id');
+            return response;
+        } catch (error) {
+            return error.response;
+        }
+    }
+
     static async getToken() {
         try {
             const response = await axiosInstance.post('/api/tokens/create');
@@ -168,6 +177,16 @@ export default class Service {
                 time_ended,
                 result
             });
+            return response.data;
+        } catch (error) {
+            return error.response;
+        }
+    }
+
+    static async getCompetitions() {
+        try {
+            await getCSRFToken();
+            const response = await axiosInstance.get('/api/competitions');
             return response.data;
         } catch (error) {
             return error.response;

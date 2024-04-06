@@ -1,6 +1,6 @@
 import {Canvas} from "@react-three/fiber";
 import {Stage, PresentationControls, useGLTF, Box, Text} from "@react-three/drei";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function Model(props) {
   const {scene} = useGLTF("../Test/body.glb");
@@ -8,8 +8,11 @@ function Model(props) {
 }
 
 
-function Body() {
+function Body({ hits }) {
   const [isRed, setIsRed] = useState(true);
+
+  useEffect(() => {
+  }, [])
 
   return (
     <div className="body-model-container">
@@ -29,7 +32,7 @@ function Body() {
                   color={isRed ? 'red' : 'white'}
                 />
                 <Text position={[4, 2, 0.86]} color="black" fontSize={1.5}>
-                  Right chest: 24
+                  Right chest: { hits[3] }
                 </Text>
               </Box>
               {/* левая грудь */}
@@ -42,7 +45,7 @@ function Body() {
                   color={isRed ? 'red' : 'white'}
                 />
                 <Text position={[-4, 2, 0.86]} color="black" fontSize={1.5}>
-                  Left chest: 24
+                  Left chest: { hits[2] }
                 </Text>
               </Box>
               {/* голова */}
@@ -55,7 +58,7 @@ function Body() {
                   color={isRed ? 'red' : 'white'}
                 />
                 <Text position={[0, 2, 0.86]} color="black" fontSize={1.5}>
-                  Head: 24
+                  Head: { hits[1] }
                 </Text>
               </Box>
               {/* спина */}
@@ -68,7 +71,7 @@ function Body() {
                   color={isRed ? 'red' : 'white'}
                 />
                 <Text Text position={[0, 2, -0.86]} color="black" fontSize={1.5} rotation={[0, Math.PI, 0]}>
-                  Spine: 24
+                  Spine: { hits[7] }
                 </Text>
               </Box>
               {/* правая нога */}
@@ -81,7 +84,7 @@ function Body() {
                   color={isRed ? 'red' : 'white'}
                 />
                 <Text position={[0, 4, 0.86]} color="black" fontSize={1.5}>
-                  Right leg: 24
+                  Left leg: { hits[5] }
                 </Text>
               </Box>
               {/* левая нога */}
@@ -94,7 +97,7 @@ function Body() {
                   color={isRed ? 'red' : 'white'}
                 />
                 <Text position={[0, -4, 0.86]} color="black" fontSize={1.5}>
-                  Left leg: 24
+                  Right leg: { hits[6] }
                 </Text>
               </Box>
               {/* живота */}
@@ -107,7 +110,7 @@ function Body() {
                   color={isRed ? 'red' : 'white'}
                 />
                 <Text position={[0, 2, 0.86]} color="black" fontSize={1.5}>
-                  Stomach: 24
+                  Stomach: { hits[4] }
                 </Text>
               </Box>
             </Stage>
@@ -116,5 +119,9 @@ function Body() {
     </div>
   );
 }
+
+Body.defaultProps = {
+  hits: [0, 0, 0, 0, 0, 0, 0] // Default values for the hits array
+};
 
 export default Body;

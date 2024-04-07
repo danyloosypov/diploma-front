@@ -10,6 +10,7 @@ import {
 from 'mdb-react-ui-kit';
 import useAuthContext from '../context/AuthContext';
 import { Link } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -17,6 +18,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const { register, errors } = useAuthContext();
+  const [t, i18n] = useTranslation("global");
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -44,36 +46,31 @@ const Register = () => {
 
         <MDBCol sm='6'>
 
-          <div className='d-flex flex-row ps-5 pt-5'>
-            <MDBIcon fas icon="strikethrough fa-3x me-3" style={{ color: '#709085' }}/>
-            <span className="h1 fw-bold mb-0">Strike</span>
-          </div>
-
           <div className='d-flex flex-column justify-content-center h-custom-2 w-75 pt-4'>
 
-            <h3 className="fw-normal mb-3 ps-5 pb-3" style={{letterSpacing: '1px'}}>Sign Up</h3>
+            <h3 className="fw-normal mb-3 ps-5 pb-3" style={{letterSpacing: '1px'}}>{t('signUp.title')}</h3>
 
-            <MDBInput wrapperClass='mb-4 mx-5 w-100' label='name' id='formControlLg' type='text' size="lg" onChange={handleNameChange} />
+            <MDBInput wrapperClass='mb-4 mx-5 w-100' label={t('signUp.namePlaceholder')} id='formControlLg' type='text' size="lg" onChange={handleNameChange} />
             {errors.name && <div className='mb-4 mx-5 w-100 error-text'>
               {errors.name[0]}
             </div>}
-            <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Email address' id='formControlLg' type='email' size="lg" onChange={handleEmailChange} />
+            <MDBInput wrapperClass='mb-4 mx-5 w-100' label={t('login.emailPlaceholder')} id='formControlLg' type='email' size="lg" onChange={handleEmailChange} />
             {errors.email && <div className='mb-4 mx-5 w-100 error-text'>
               {errors.email[0]}
             </div>}
-            <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Password' id='formControlLg' type='password' size="lg" onChange={handlePasswordChange} />
+            <MDBInput wrapperClass='mb-4 mx-5 w-100' label={t('login.passwordPlaceholder')} id='formControlLg' type='password' size="lg" onChange={handlePasswordChange} />
             {errors.password && <div className='mb-4 mx-5 w-100 error-text'>
               {errors.password[0]}
             </div>}
-            <MDBInput wrapperClass='mb-4 mx-5 w-100' label='Password Confirmation' id='formControlLg' type='password' size="lg" onChange={handlePasswordConfirmationChange} />
+            <MDBInput wrapperClass='mb-4 mx-5 w-100' label={t('signUp.passwordConfirmationPlaceholder')} id='formControlLg' type='password' size="lg" onChange={handlePasswordConfirmationChange} />
             {errors.password && <div className='mb-4 mx-5 w-100 error-text'>
               {errors.password[1]}
             </div>}
 
-            <MDBBtn className="mb-4 px-5 mx-5 w-100" color='info' size='lg' onClick={handleRegister} >Sign up</MDBBtn>
+            <MDBBtn className="mb-4 px-5 mx-5 w-100" color='info' size='lg' onClick={handleRegister} >{t('signUp.signUpBtn')}</MDBBtn>
             <p className='ms-5'>
-              Have an account? 
-              <Link className="text-muted" to="/login">Login</Link>
+              {t('signUp.haveAnAccount')}
+              <Link className="text-muted" to="/login">{t('login.loginButton')}</Link>
             </p>
           </div>
 

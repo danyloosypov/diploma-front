@@ -1,3 +1,87 @@
 {
-    "test": "тест"
+    "phrazes": {
+        "submit": "Надіслати",
+        "gameRoles": "Командні ролі",
+        "goals": "Задачі"
+    },
+    "notFound": {
+        "title": "Упс!!! Сторінка, яку Ви шукаєте не існує",
+        "backHomeBtn": "На головну"
+    },
+    "competition": {
+        "matchCreation": "Новий матч",
+        "matchTitle": "Назва матчу:",
+        "matchGoal": "Мета:",
+        "selectGoal": "Оберіть мету",
+        "map": "Мапа:",
+        "teamTitle": "Назва команди:",
+        "teamMembers": "Члени команди:",
+        "user": "Користувач:",
+        "gameRole": "Командна роль:",
+        "selectGameRole": "Оберіть командну роль",
+        "removeTeamMemberBtn": "Видалити члена команди",
+        "addTeamMemberBtn": "Додати члена команди",
+        "deleteTeamBtn": "Видалити команду",
+        "addTeamBtn": "Створити команду",
+        "createMatchBtn": "Створити матч",
+        "matchInfo": "Поточний матч",
+        "matchStartedAt": "Матч почався о:",
+        "teams": "Команди",
+        "team": "Команда",
+        "result": "Результат:",
+        "stopMatchBtn": "Зупинити матч"
+    },
+    "timer": {
+        "hours": "Годин",
+        "minutes": "Хвилин",
+        "seconds": "Секунд"
+    },
+    "account": {
+        "myCompetitions": "Мої матчі",
+        "personalData": "Персональні дані",
+        "settings": "Налаштування",
+        "matchDuration": "Тривалість матчу:",
+        "avgMatchTime": "Середня тривалість матчу",
+        "competitionsCount": "Кількість матчів",
+        "showToken": "Показати токен"
+    },
+    "signUp": {
+        "title": "Реєстрація",
+        "namePlaceholder": "Юзернейм",
+        "passwordConfirmationPlaceholder": "Підтвердження паролю",
+        "signUpBtn": "Зареєструватися",
+        "haveAnAccount": "Маєте акаунт?"
+    },
+    "pages": {
+        "account": "Акаунт",
+        "competition": "Матч",
+        "help": "Про Strike"
+    },
+    "login": {
+        "title": "Авторизація",
+        "emailPlaceholder": "Email",
+        "passwordPlaceholder": "Пароль",
+        "loginButton": "Увійти",
+        "forgotPassword": "Забули пароль?",
+        "dontHaveAnAccount": "Немає акаунту?",
+        "registerLink": "Зареєструватися"
+    },
+    "header": {
+        "loginBtn": "Авторизуватися",
+        "logoutBtn": "Вийти",
+        "title": "Відчуйте неймовірний досвід зі Strike",
+        "subtitle": "Приєднуйтесь до наших змагань і змагайтеся з іншими в захоплюючих матчах!",
+        "goToMatchBtn": "Перейти до матчу"
+    },
+    "footer": {
+        "socialTitle": "Зв’яжіться з нами в соціальних мережах:",
+        "sitemap": "Карта сайту",
+        "usefulLink": "Корисні посилання",
+        "contact": "КОНТАКТИ",
+        "address": "New York, NY 10012, US",
+        "email": "danylo.osypov@nure.ua",
+        "phone": "066-666-66-66",
+        "copyright": "© 2024 Copyright:",
+        "copyrightValue": "Danylo Osypov"
+    }
 }

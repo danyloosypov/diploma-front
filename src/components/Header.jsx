@@ -44,13 +44,15 @@ export default function Header({user}) {
         <nav ref={navRef}>
           {user && (
             <>
-              <Link to="/" onClick={showNavbar}>Account</Link>
-              <Link to="/competition" onClick={showNavbar}>Current competition</Link>
+              <Link to="/" onClick={showNavbar}>{t('pages.account')}</Link>
+              <Link to="/competition" onClick={showNavbar}>{t('pages.competition')}</Link>
             </>
           )}
           
-          <Link to="/help" onClick={showNavbar}>Help</Link>
-          <LanguagePicker />
+          <Link to="/help" onClick={showNavbar}>{t('pages.help')}</Link>
+          <div className="desktop">
+            <LanguagePicker />
+          </div>
           <button
             className="nav-btn nav-close-btn"
             onClick={showNavbar}>
@@ -58,14 +60,17 @@ export default function Header({user}) {
           </button>
           {user ? (
             <div className="text-center">
-              <button className="btn btn-outline-primary" onClick={handleLogout}>Log Out</button>
+              <button className="btn btn-outline-primary" onClick={handleLogout}>{t('header.logoutBtn')}</button>
             </div>
           ) : (
             <div className="text-center">
-              <button className="btn btn-primary" onClick={handleLogin}>Log In</button>
+              <button className="btn btn-primary" onClick={handleLogin}>{t('header.loginBtn')}</button>
             </div>
           )}
         </nav>
+        <div className="mobile">
+          <LanguagePicker />
+        </div>
         <button
           className="nav-btn"
           onClick={showNavbar}>
@@ -80,10 +85,10 @@ export default function Header({user}) {
           <div className='mask' style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
             <div className='d-flex justify-content-center align-items-center h-100'>
               <div className='text-white'>
-                <h1 className='mb-3'>Heading</h1>
-                <h4 className='mb-3'>Subheading</h4>
+                <h1 className='mb-3'>{t('header.title')}</h1>
+                <h4 className='mb-3'>{t('header.subtitle')}</h4>
                 <MDBBtn tag="a" outline size="lg">
-                  <Link className='header-banner-btn' to="/competition">Go to match</Link>
+                  <Link className='header-banner-btn' to="/competition">{t('header.goToMatchBtn')}</Link>
                 </MDBBtn>
               </div>
             </div>

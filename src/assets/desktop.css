@@ -37,12 +37,13 @@
     padding: 0.75rem 1rem 0.6rem;
     transition: all 0.2s linear;
     box-shadow: 0 3px 8px rgba(0,0,0, 0.3);
+    text-decoration: none;
 }
+
 .back-home:hover{
     background: #222;
     color: #ddd;
 }
-
 
 header {
 	display: flex;
@@ -280,4 +281,55 @@ header .nav-btn {
 .accordion-competition-content {
     display: flex;
     flex-direction: column;
+}
+
+.tabs-container {
+    padding-top: 30px;
+    padding-bottom: 120px;
+}
+
+.personal-widgets-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 40px 0;
+}
+
+.personal-data-widget {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background: #FFF;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.personal-data-widget-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.desktop {
+    display: block;
+}
+
+.mobile {
+    display: none;
+}
+
+.settings-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-direction: column;
+}
+
+.settings-token {
+    width: 500px;
+}
+
+.show-token {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }

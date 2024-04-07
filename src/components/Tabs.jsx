@@ -11,16 +11,15 @@ import Body from './Body';
 import useAuthContext from '../context/AuthContext';
 import { useTranslation } from "react-i18next";
 import { MDBAccordion, MDBAccordionItem } from 'mdb-react-ui-kit';
-import SquadLeadScene from './SquadLeadScene';
-import RiflemanScene from './RiflemanScene';
-import ScoutScene from './ScoutScene';
-import SniperScene from './SniperScene';
+import { Link } from 'react-router-dom';
 
 const Tabs = () => {
   const [justifyActive, setJustifyActive] = useState('My Competitions');
   const [t, i18n] = useTranslation("global");
-  const { token } = useAuthContext();
+  const { token, user } = useAuthContext();
   const [showToken, setShowToken] = useState(false);
+  const [avgGameTime, setAvgGameTime] = useState(null);
+  const [userCompetitionsCount, setUserCompetitionsCount] = useState(null);
   const [competitions, setCompetitions] = useState(false);
 
   const handleJustifyClick = (value: string) => {
@@ -34,29 +33,30 @@ const Tabs = () => {
   useEffect(() => {
     const fetchData = async () => {
       const competitions = await Service.getCompetitions();
-      setCompetitions(competitions);
-      console.log(competitions)
+      setCompetitions(competitions['competitions']);
+      setAvgGameTime(competitions['avgGameTime']);
+      setUserCompetitionsCount(competitions['userCompetitionsCount']);
     };
 
     fetchData();
   }, []);
 
   return (
-    <div>
+    <div className='container tabs-container'>
       <MDBTabs justify className='mb-3'>
         <MDBTabsItem>
           <MDBTabsLink onClick={() => handleJustifyClick('My Competitions')} active={justifyActive === 'My Competitions'}>
-            My Competitions
+           {t('account.myCompetitions')}
           </MDBTabsLink>
         </MDBTabsItem>
         <MDBTabsItem>
           <MDBTabsLink onClick={() => handleJustifyClick('Personal data')} active={justifyActive === 'Personal data'}>
-            Personal data
+            {t('account.personalData')}
           </MDBTabsLink>
         </MDBTabsItem>
         <MDBTabsItem>
           <MDBTabsLink onClick={() => handleJustifyClick('Settings')} active={justifyActive === 'Settings'}>
-            Settings
+            {t('account.settings')}
           </MDBTabsLink>
         </MDBTabsItem>
       </MDBTabs>
@@ -68,12 +68,12 @@ const Tabs = () => {
               <MDBAccordionItem key={index} collapseId={index + 1} headerTitle={competition.title + " " + competition.game_start}>
                 <div className='accordion-competition-content'>
                   <h2 style={{"textAlign": "center"}}>
-                    Match info
+                    {t('competition.matchInfo')}
                   </h2>
                   <div className='current-match-info'>
                     <div className='current-match-info-item'>
                       <div className='current-match-info-item-title'>
-                        Title:
+                        {t('competition.matchTitle')}
                       </div>
                       <div className='current-match-info-item-value'>
                         {competition.title}
@@ -81,7 +81,7 @@ const Tabs = () => {
                     </div>
                     <div className='current-match-info-item'>
                       <div className='current-match-info-item-title'>
-                        Goal:
+                        {t('competition.matchGoal')}
                       </div>
                       <div className='current-match-info-item-value'>
                         {i18n.language === 'en' ? competition.goal.title.en : competition.goal.title.uk}
@@ -89,7 +89,7 @@ const Tabs = () => {
                     </div>
                     <div className='current-match-info-item'>
                       <div className='current-match-info-item-title'>
-                        The duration of the game:
+                        {t('account.matchDuration')}
                       </div>
                       <div className='current-match-info-item-value'>
                         {competition.game_start} - {competition.game_end}                      
@@ -97,7 +97,7 @@ const Tabs = () => {
                     </div>
                     <div className='current-match-info-item'>
                       <div className='current-match-info-item-title'>
-                        Result:
+                        {t('competition.result')}
                       </div>
                       <div className='current-match-info-item-value'>
                         {competition.result}                    
@@ -105,7 +105,7 @@ const Tabs = () => {
                     </div>
                     <div style={{"flexDirection": "column", "alignItems": "center"}} className='current-match-info-item'>
                       <div className='current-match-info-item-title'>
-                        Map:
+                        {t('competition.map')}
                       </div>
                       <div className='current-match-info-item-value'>
                         <img className='current-match-info-item-image' src={Service.getBaseURL() + '/storage/' + competition.map} alt="" />
@@ -114,20 +114,20 @@ const Tabs = () => {
                   </div>
                   <Body hits={competition.sensorHits} />
                   <h2 style={{"marginTop": "30px", "textAlign": "center"}}>
-                    Teams
+                    {t('competition.teams')}
                   </h2>
                   <div className='current-match-teams'>
                     {competition.teams.map((team, index) => (
                       <div className='current-match-team' key={index}>
                         <div className='current-match-info-item'>
                           <h3 className='current-match-info-item-title'>
-                            Team {index + 1}:
+                          {t('competition.team')} {index + 1}:
                           </h3>
                           <div className='current-match-info-item-value'>
                             {team.teamTitle}
                           </div>
                         </div>
-                        <h3>Team members</h3>
+                        <h3>{t('competition.teamMembers')}</h3>
                         {team.team_members.map((member, memberIndex) => (
                           <div className='current-match-info-item' key={memberIndex}>
                             <div className='current-match-info-item-title'>
@@ -147,12 +147,46 @@ const Tabs = () => {
         </MDBAccordion>
         </MDBTabsPane>
         <MDBTabsPane open={justifyActive === 'Personal data'}>
+          <div className="personal-widgets-container">
+            <div className="personal-data-widget">
+              <div className="personal-data-widget-title">
+                {t('account.avgMatchTime')}
+              </div>
+              <div className="personal-data-widget-value">
+                {avgGameTime}
+              </div>
+            </div>
+            <div className="personal-data-widget">
+              <div className="personal-data-widget-title">
+                {t('account.competitionsCount')}
+              </div>
+              <div className="personal-data-widget-value">
+                {userCompetitionsCount}
+              </div>
+            </div>
+          </div>
           
+          <div className='current-match-info-item'>
+            <div className='current-match-info-item-title'>
+              {t('signUp.namePlaceholder')}:
+            </div>
+            <div className='current-match-info-item-value'>
+              {user.name}
+            </div>
+          </div>
+          <div className='current-match-info-item'>
+            <div className='current-match-info-item-title'>
+            {t('signUp.emailPlaceholder')}:
+            </div>
+            <div className='current-match-info-item-value'>
+              {user.email}
+            </div>
+          </div>
         </MDBTabsPane>
         <MDBTabsPane open={justifyActive === 'Settings'}>
-          <div>
-              <label htmlFor="pass">Enter password: </label>
+          <div className='settings-container'>
               <input
+                  className='settings-token'
                   id="pass"
                   type={
                       showToken ? "text" : "password"
@@ -160,17 +194,18 @@ const Tabs = () => {
                   value={token}
                   disabled
               />
-              <br />
-              <br />
-              <label htmlFor="check">Show Password</label>
-              <input
-                  id="check"
-                  type="checkbox"
-                  value={showToken}
-                  onChange={() =>
-                      setShowToken((prev) => !prev)
-                  }
-              />
+              <div className="show-token">
+                <label htmlFor="check">{t('account.showToken')}</label>
+                <input
+                    id="check"
+                    type="checkbox"
+                    value={showToken}
+                    onChange={() =>
+                        setShowToken((prev) => !prev)
+                    }
+                />
+              </div>
+              
           </div>
         </MDBTabsPane>
       </MDBTabsContent>

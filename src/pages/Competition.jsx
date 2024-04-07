@@ -45,8 +45,6 @@ const Competition = () => {
           setStartTime(new Date(currentMatch.game_start));
         }
 
-        console.log(currentMatch)
-
         const transformedUsers = fetchedUsers.map((user) => ({
           value: user.id,
           label: user.email,
@@ -255,17 +253,17 @@ const Competition = () => {
     <div className="container competition-form">
       {!currentCompetition ? (
       <div className='competition-form-container'>
-        <h1>Match creation</h1>
+        <h1>{t('competition.matchCreation')}</h1>
         <div className='competition-fields'>
           <label className='form-item'>
-            Title:
+            {t('competition.matchTitle')}
             <input className='form-control' type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
           </label>
           <label className='form-item'>
-            Goal:
+            {t('competition.matchGoal')}
             <select className='form-control' value={selectedGoal} onChange={handleGoalChange}>
               <option value="" disabled>
-                Select a goal
+                {t('competition.selectGoal')}
               </option>
               {goals.map((goal) => (
                 <option key={goal.id} value={goal.id}>
@@ -275,7 +273,7 @@ const Competition = () => {
             </select>
           </label>
           <label className='form-item'>
-            Map:
+            {t('competition.map')}
             <input className='form-control-file' type="file" accept="image/*" onChange={handleMapImageChange} />
           </label>
         </div>
@@ -283,7 +281,7 @@ const Competition = () => {
         {teamBlocks.map((team, index) => (
           <div className='team-form-block' key={index}>
             <label className='form-item'>
-              Team Title:
+              {t('competition.teamTitle')}
               <input
                 className='form-control'
                 type="text"
@@ -293,11 +291,11 @@ const Competition = () => {
             </label>
 
             <div className='form-team-item'>
-              Team Members:
+              {t('competition.teamMembers')}
               {team.teamMembers.map((member, memberIndex) => (
                 <div className='form-team-member-item' key={memberIndex}>
                   <label className='form-item'>
-                    User:
+                    {t('competition.user')}
                     <Select
                       className="basic-single"
                       classNamePrefix="select"
@@ -309,14 +307,14 @@ const Competition = () => {
                   </label>
 
                   <label className='form-item'>
-                    Game Role:
+                    {t('competition.gameRole')}
                     <select
                       className='form-control'
                       value={member.gameRoleId}
                       onChange={(e) => handleTeamMemberChange(index, memberIndex, 'gameRoleId', e.target.value)}
                     >
                       <option value="" disabled>
-                        Select a Game Role
+                        {t('competition.selectGameRole')}
                       </option>
                       {gameRoles.map((gameRole) => (
                         <option key={gameRole.id} value={gameRole.id}>
@@ -326,29 +324,37 @@ const Competition = () => {
                     </select>
                   </label>
                   <button className='btn btn-danger form-btn' onClick={() => handleRemoveTeamMember(index, memberIndex)}>
-                    Remove Team Member
+                    {t('competition.removeTeamMemberBtn')}
                   </button>
                 </div>
               ))}
             </div>
             <div className='form-team-block-btns'>
-              <button className='btn btn-primary form-btn' onClick={() => handleAddTeamMember(index)}>Add Team Member</button>
-              <button className='btn btn-danger form-btn' onClick={() => handleDeleteTeam(index)}>Delete Team</button>
+              <button className='btn btn-primary form-btn' onClick={() => handleAddTeamMember(index)}>
+                {t('competition.addTeamMemberBtn')}
+              </button>
+              <button className='btn btn-danger form-btn' onClick={() => handleDeleteTeam(index)}>
+                {t('competition.deleteTeamBtn')}
+              </button>
             </div>
           </div>
         ))}
-        <button className='btn btn-primary form-btn' onClick={handleAddTeam}>Add Team</button>
-        <button className='btn btn-success form-btn' onClick={createMatch}>Create match</button>
+        <button className='btn btn-primary form-btn' onClick={handleAddTeam}>
+          {t('competition.addTeamBtn')}
+        </button>
+        <button className='btn btn-success form-btn' onClick={createMatch}>
+          {t('competition.createMatchBtn')}
+        </button>
       </div>
       ) : (
       <div className='current-match'>
         <h2 style={{"textAlign": "center"}}>
-          Match info
+          {t('competition.matchInfo')}
         </h2>
         <div className='current-match-info'>
           <div className='current-match-info-item'>
             <div className='current-match-info-item-title'>
-              Title:
+              {t('competition.matchTitle')}
             </div>
             <div className='current-match-info-item-value'>
               {currentCompetition.title}
@@ -356,7 +362,7 @@ const Competition = () => {
           </div>
           <div className='current-match-info-item'>
             <div className='current-match-info-item-title'>
-              Goal:
+              {t('competition.matchGoal')}
             </div>
             <div className='current-match-info-item-value'>
               {i18n.language === 'en' ? currentCompetition.goal.title.en : currentCompetition.goal.title.uk}
@@ -364,7 +370,7 @@ const Competition = () => {
           </div>
           <div className='current-match-info-item'>
             <div className='current-match-info-item-title'>
-              Match started at:
+              {t('competition.matchStartedAt')}
             </div>
             <div className='current-match-info-item-value'>
               {currentCompetition.game_start}
@@ -372,7 +378,7 @@ const Competition = () => {
           </div>
           <div style={{"flexDirection": "column", "alignItems": "center"}} className='current-match-info-item'>
             <div className='current-match-info-item-title'>
-              Map:
+              {t('competition.map')}
             </div>
             <div className='current-match-info-item-value'>
               <img className='current-match-info-item-image' src={Service.getBaseURL() + '/storage/' + currentCompetition.map} alt="" />
@@ -380,20 +386,22 @@ const Competition = () => {
           </div>
         </div>
         <h2 style={{"marginTop": "30px", "textAlign": "center"}}>
-          Teams
+          {t('competition.teams')}
         </h2>
         <div className='current-match-teams'>
           {currentCompetition.teams.map((team, index) => (
             <div className='current-match-team' key={index}>
               <div className='current-match-info-item'>
                 <h3 className='current-match-info-item-title'>
-                  Team {index + 1}:
+                {t('competition.team')} {index + 1}:
                 </h3>
                 <div className='current-match-info-item-value'>
                   {team.teamTitle}
                 </div>
               </div>
-              <h3>Team members</h3>
+              <h3>
+                {t('competition.teamMembers')}
+              </h3>
               {team.team_members.map((member, memberIndex) => (
                 <div className='current-match-info-item' key={memberIndex}>
                   <div className='current-match-info-item-title'>
@@ -411,13 +419,15 @@ const Competition = () => {
         <Timer startTime={startTime} />
         <div style={{"padding": "20px 0"}}>
           <label className='form-item'>
-            Result:
+            {t('competition.result')}
             <input className='form-control' type="text" value={matchResult} onChange={handleMatchResultChange} />
           </label>
         </div>
         {
           user.id == currentCompetition.host_id && (
-            <button style={{"margin": "0 auto"}} className='btn btn-warning form-btn' onClick={stopMatch}>Stop match</button>
+            <button style={{"margin": "0 auto"}} className='btn btn-warning form-btn' onClick={stopMatch}>
+              {t('competition.stopMatchBtn')}
+            </button>
           )
         }
         <Body hits={hits} />

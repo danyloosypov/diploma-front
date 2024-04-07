@@ -79,4 +79,21 @@
 		margin: 20px auto;
 		padding: 0px;
 	}
+
+	.tabs-container {
+		padding-top: 15px;
+		padding-bottom: 60px;
+	}
+
+	.desktop {
+		display: none;
+	}
+	
+	.mobile {
+		display: block;
+	}
+
+	.settings-token {
+		width: 100%;
+	}
 }

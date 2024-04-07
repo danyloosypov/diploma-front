@@ -1,3 +1,90 @@
 {
-    "test": "test"
+    "phrazes": {
+        "submit": "Submit",
+        "gameRoles": "Game roles",
+        "goals": "Goals"
+    },
+    "notFound": {
+        "title": "Ooops!!! The page you are looking for is not found",
+        "backHomeBtn": "Back to home"
+    },
+    "resetPassword": {
+        "title": "Reset Password"
+    },
+    "competition": {
+        "matchCreation": "New Match",
+        "matchTitle": "Match Title:",
+        "matchGoal": "Goal:",
+        "selectGoal": "Select a goal",
+        "map": "Map",
+        "teamTitle": "Team title:",
+        "teamMembers": "Team members:",
+        "user": "User:",
+        "gameRole": "Game role:",
+        "selectGameRole": "Select a Game Role",
+        "removeTeamMemberBtn": "Remove Team Member",
+        "addTeamMemberBtn": "Add Team Member",
+        "deleteTeamBtn": "Delete Team",
+        "addTeamBtn": "Add Team",
+        "createMatchBtn": "Create match",
+        "matchInfo": "Match info",
+        "matchStartedAt": "Match started at:",
+        "teams": "Teams",
+        "team": "Team",
+        "result": "Result:",
+        "stopMatchBtn": "Stop match"
+    },
+    "timer": {
+        "hours": "Hours",
+        "minutes": "Minutes",
+        "seconds": "Seconds"
+    },
+    "account": {
+        "myCompetitions": "My competitions",
+        "personalData": "Personal data",
+        "settings": "Settings",
+        "matchDuration": "The duration of the game:",
+        "avgMatchTime": "Average match time",
+        "competitionsCount": "Competitions count",
+        "showToken": "Show token"
+    },
+    "signUp": {
+        "title": "Sign Up",
+        "namePlaceholder": "Username",
+        "passwordConfirmationPlaceholder": "Password Confirmation",
+        "signUpBtn": "Sign Up",
+        "haveAnAccount": "Have an account?"
+    },
+    "pages": {
+        "account": "Account",
+        "competition": "Competition",
+        "help": "About Strike"
+    },
+    "login": {
+        "title": "Log in",
+        "emailPlaceholder": "Email address",
+        "passwordPlaceholder": "Password",
+        "loginButton": "Login",
+        "forgotPassword": "Forgot password?",
+        "dontHaveAnAccount": "Don't have an account?",
+        "registerLink": "Register here"
+    },
+    "header": {
+        "loginBtn": "Log in",
+        "logoutBtn": "Log out",
+        "title": "Experience an amazing experience with Strike",
+        "subtitle": "Join our competitions and compete with others in exciting matches!",
+        "goToMatchBtn": "Go to match"
+    },
+    "footer": {
+        "socialTitle": "Get connected with us on social networks:",
+        "sitemap": "Sitemap",
+        "usefulLink": "USEFUL LINKS",
+        "contact": "CONTACT",
+        "address": "New York, NY 10012, US",
+        "email": "danylo.osypov@nure.ua",
+        "phone": "066-666-66-66",
+        "copyright": "© 2024 Copyright:",
+        "copyrightValue": "Danylo Osypov"
+    }
 }

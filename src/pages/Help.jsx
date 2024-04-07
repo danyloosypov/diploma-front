@@ -64,7 +64,7 @@ const Help = () => {
   return (
     <div className='container' style={{"margin-top": "40px", "margin-bottom": "40px"}}>
       <h2>
-        Game roles
+        {t('phrazes.gameRoles')}
       </h2>
       <MDBAccordion initialActive={1}>
         {gameRoles.map((role, index) => (
@@ -77,7 +77,7 @@ const Help = () => {
         ))}
       </MDBAccordion>
       <h2 style={{"margin-top": "40px"}}>
-        Goals
+        {t('phrazes.goals')}
       </h2>
       <MDBAccordion initialActive={1}>
         {goals.map((role, index) => (

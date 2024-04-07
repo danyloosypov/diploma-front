@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Timer = ({ startTime }) => {
   const [elapsedTime, setElapsedTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [t, i18n] = useTranslation('global');
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -34,7 +36,7 @@ const Timer = ({ startTime }) => {
               </div>
             </div>
           </div>
-          <div className="timer-text">годин</div>
+          <div className="timer-text">{t('timer.hours')}</div>
         </div>
         <div className="timer-digits-wrapper-container">
           <div className="timer-digits-container">
@@ -49,7 +51,7 @@ const Timer = ({ startTime }) => {
               </div>
             </div>
           </div>
-          <div className="timer-text">хвилин</div>
+          <div className="timer-text">{t('timer.minutes')}</div>
         </div>
         <div className="timer-digits-wrapper-container">
           <div className="timer-digits-container">
@@ -64,7 +66,7 @@ const Timer = ({ startTime }) => {
               </div>
             </div>
           </div>
-          <div className="timer-text">секунд</div>
+          <div className="timer-text">{t('timer.seconds')}</div>
         </div>
       </div>
     </div>

@@ -11,6 +11,15 @@
     "resetPassword": {
         "title": "Reset Password"
     },
+    "body": {
+        "rightChest": "Right chest",
+        "leftChest": "Left chest",
+        "head": "Head",
+        "spine": "Spine",
+        "leftLeg": "Left leg",
+        "rightLeg": "Right leg",
+        "stomach": "Stomach"
+    },
     "competition": {
         "matchCreation": "New Match",
         "matchTitle": "Match Title:",
@@ -68,6 +77,16 @@
         "forgotPassword": "Forgot password?",
         "dontHaveAnAccount": "Don't have an account?",
         "registerLink": "Register here"
+    },
+    "map": {
+        "save": "Save",
+        "load": "Load",
+        "addText": "Add text",
+        "clear": "Clear",
+        "undo": "Undo",
+        "redo": "Redo",
+        "delete": "Delete",
+        "add": "Add"
     },
     "header": {
         "loginBtn": "Log in",

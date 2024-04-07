@@ -8,6 +8,15 @@
         "title": "Упс!!! Сторінка, яку Ви шукаєте не існує",
         "backHomeBtn": "На головну"
     },
+    "body": {
+        "rightChest": "Права частина грудної клітки",
+        "leftChest": "Ліва частина грудної клітки",
+        "head": "Голова",
+        "spine": "Спина",
+        "leftLeg": "Ліва нога",
+        "rightLeg": "Права нога",
+        "stomach": "Живіт"
+    },
     "competition": {
         "matchCreation": "Новий матч",
         "matchTitle": "Назва матчу:",
@@ -29,7 +38,7 @@
         "teams": "Команди",
         "team": "Команда",
         "result": "Результат:",
-        "stopMatchBtn": "Зупинити матч"
+        "stopMatchBtn": "Закінчити матч"
     },
     "timer": {
         "hours": "Годин",
@@ -65,6 +74,16 @@
         "forgotPassword": "Забули пароль?",
         "dontHaveAnAccount": "Немає акаунту?",
         "registerLink": "Зареєструватися"
+    },
+    "map": {
+        "save": "Зберегти",
+        "load": "Завантажити",
+        "addText": "Додати текст",
+        "clear": "Видалити все",
+        "undo": "Назад",
+        "redo": "Вперед",
+        "delete": "Видалити",
+        "add": "Додати"
     },
     "header": {
         "loginBtn": "Авторизуватися",

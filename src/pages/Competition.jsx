@@ -6,9 +6,9 @@ import Timer from '../components/Timer';
 import Body from '../components/Body';
 import useAuthContext from '../context/AuthContext';
 import { toast } from 'react-toastify';
-
 import app from "../firebaseConfig";
 import { getDatabase, ref, get} from "firebase/database";
+import Map from '../components/Map';
 
 const Competition = () => {
   const [gameRoles, setGameRoles] = useState([]);
@@ -26,6 +26,7 @@ const Competition = () => {
   const [matchResult, setMatchResult] = useState('');
   const [myVestId, setMyVestId] = useState(null);
   const [hits, setHits] = useState([]);
+  const [currentTeamId, setCurrentTeamId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,9 +41,13 @@ const Competition = () => {
         }
 
         const currentMatch = await Service.getCurrentMatch();
-        setCurrentCompetition(currentMatch);
-        if (currentMatch.game_start) {
-          setStartTime(new Date(currentMatch.game_start));
+        setCurrentCompetition(currentMatch.competition);
+        if (currentMatch.competition.game_start) {
+          setStartTime(new Date(currentMatch.competition.game_start));
+        }
+
+        if (currentMatch.teamId) {
+          setCurrentTeamId(currentMatch.teamId)
         }
 
         const transformedUsers = fetchedUsers.map((user) => ({
@@ -70,19 +75,19 @@ const Competition = () => {
     const snapshot = await get(dbRef);
     if (snapshot.exists()) {
       const hitsValues = snapshot.val();
-      const sensorData = {}; // New associative array to store sensor data
-  
-      // Loop through keys and extract sensor data
+      const sensorData = {};
+      console.log("hitsValues", hitsValues)
+
       for (const key in hitsValues) {
         if (key.startsWith("sensor")) {
-          // Extract sensor number (assuming format 'sensorXHitsQt')
-          const sensorNumber = key.match(/sensor(\d+)HitsQt/)[1]; // Use regular expression for robust extraction
+          const sensorNumber = key.match(/sensor(\d+)HitsQt/)[1];
   
-          sensorData[sensorNumber] = hitsValues[key]; // Add data to new array with sensor number as key
+          sensorData[sensorNumber] = hitsValues[key];
         }
       }
   
-      setHits(sensorData); // Update state with processed sensor data
+      setHits(sensorData); 
+      console.log("sensorData", sensorData)
     }
   };
   
@@ -95,7 +100,7 @@ const Competition = () => {
     }, 5000);
   
     return () => clearInterval(intervalId);
-  }, []);
+  }, [myVestId]);
   
 
   const handleDeleteTeam = (index) => {
@@ -381,7 +386,7 @@ const Competition = () => {
               {t('competition.map')}
             </div>
             <div className='current-match-info-item-value'>
-              <img className='current-match-info-item-image' src={Service.getBaseURL() + '/storage/' + currentCompetition.map} alt="" />
+              <Map mapUrl={currentCompetition.map} teamId={currentTeamId} competitionId={currentCompetition.id} />
             </div>
           </div>
         </div>

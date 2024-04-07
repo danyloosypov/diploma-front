@@ -96,4 +96,10 @@
 	.settings-token {
 		width: 100%;
 	}
+
+	.map-block {
+		display: flex;
+		gap: 50px;
+		flex-direction: column-reverse;
+	}
 }

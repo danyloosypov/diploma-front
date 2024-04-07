@@ -1,18 +1,20 @@
 import {Canvas} from "@react-three/fiber";
 import {Stage, PresentationControls, useGLTF, Box, Text} from "@react-three/drei";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
 
 function Model(props) {
   const {scene} = useGLTF("../Test/body.glb");
   return <primitive object={scene} scale={0.1} {...props} />
 }
 
-
 function Body({ hits }) {
   const [isRed, setIsRed] = useState(true);
+  const [t, i18n] = useTranslation('global');
 
   useEffect(() => {
-  }, [])
+    console.log(hits)
+  }, []);
 
   return (
     <div className="body-model-container">
@@ -21,7 +23,6 @@ function Body({ hits }) {
           <PresentationControls speed={1.5} global zoom={1} polar={[-0.1, Math.PI /4]}>
             <Stage environment={null}>
               <Model scale={0.1} />
-              {/*<pointLight position={[0, 0.35, 0.04]} intensity={0.01} color={"red"} />*/}
               {/* правая грудь */}
               <Box 
                 position={[0.02, 0.35, 0.026]} 
@@ -32,7 +33,7 @@ function Body({ hits }) {
                   color={isRed ? 'red' : 'white'}
                 />
                 <Text position={[4, 2, 0.86]} color="black" fontSize={1.5}>
-                  Right chest: { hits[3] }
+                  {t('body.rightChest')}: { hits[3] }
                 </Text>
               </Box>
               {/* левая грудь */}
@@ -45,7 +46,7 @@ function Body({ hits }) {
                   color={isRed ? 'red' : 'white'}
                 />
                 <Text position={[-4, 2, 0.86]} color="black" fontSize={1.5}>
-                  Left chest: { hits[2] }
+                  {t('body.leftChest')}: { hits[2] }
                 </Text>
               </Box>
               {/* голова */}
@@ -58,7 +59,7 @@ function Body({ hits }) {
                   color={isRed ? 'red' : 'white'}
                 />
                 <Text position={[0, 2, 0.86]} color="black" fontSize={1.5}>
-                  Head: { hits[1] }
+                  {t('body.head')}: { hits[1] }
                 </Text>
               </Box>
               {/* спина */}
@@ -71,7 +72,7 @@ function Body({ hits }) {
                   color={isRed ? 'red' : 'white'}
                 />
                 <Text Text position={[0, 2, -0.86]} color="black" fontSize={1.5} rotation={[0, Math.PI, 0]}>
-                  Spine: { hits[7] }
+                  {t('body.spine')}: { hits[7] }
                 </Text>
               </Box>
               {/* правая нога */}
@@ -84,7 +85,7 @@ function Body({ hits }) {
                   color={isRed ? 'red' : 'white'}
                 />
                 <Text position={[0, 4, 0.86]} color="black" fontSize={1.5}>
-                  Left leg: { hits[5] }
+                  {t('body.leftLeg')}: { hits[5] }
                 </Text>
               </Box>
               {/* левая нога */}
@@ -97,7 +98,7 @@ function Body({ hits }) {
                   color={isRed ? 'red' : 'white'}
                 />
                 <Text position={[0, -4, 0.86]} color="black" fontSize={1.5}>
-                  Right leg: { hits[6] }
+                  {t('body.rightLeg')}: { hits[6] }
                 </Text>
               </Box>
               {/* живота */}
@@ -110,7 +111,7 @@ function Body({ hits }) {
                   color={isRed ? 'red' : 'white'}
                 />
                 <Text position={[0, 2, 0.86]} color="black" fontSize={1.5}>
-                  Stomach: { hits[4] }
+                  {t('body.stomach')}: { hits[4] }
                 </Text>
               </Box>
             </Stage>
@@ -121,7 +122,7 @@ function Body({ hits }) {
 }
 
 Body.defaultProps = {
-  hits: [0, 0, 0, 0, 0, 0, 0] // Default values for the hits array
+  hits: [0, 0, 0, 0, 0, 0, 0] 
 };
 
 export default Body;

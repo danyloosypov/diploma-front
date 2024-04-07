@@ -193,4 +193,14 @@ export default class Service {
         }
     }
 
+    static async getMapSigns() {
+        try {
+            await getCSRFToken();
+            const response = await axiosInstance.get('/api/map-signs');
+            return response.data;
+        } catch (error) {
+            return error.response;
+        }
+    }
+
 }

@@ -45,11 +45,11 @@ const Competition = () => {
 
         const currentMatch = await Service.getCurrentMatch();
         setCurrentCompetition(currentMatch.competition);
-        if (currentMatch.competition.game_start) {
+        if (currentMatch.competition != null && currentMatch.competition.game_start) {
           setStartTime(new Date(currentMatch.competition.game_start));
         }
 
-        if (currentMatch.teamId) {
+        if (currentMatch != null && currentMatch.teamId) {
           setCurrentTeamId(currentMatch.teamId)
         }
 
@@ -76,7 +76,6 @@ const Competition = () => {
   }, []);
 
   const fetchFirebaseData = async () => {
-    startLoading();
     const db = getDatabase(app);
     const dbRef = ref(db, "vests/" + myVestId);
     const snapshot = await get(dbRef);
@@ -94,7 +93,6 @@ const Competition = () => {
   
       setHits(sensorData); 
     }
-    stopLoading();
   };
   
 

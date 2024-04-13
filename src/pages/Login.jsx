@@ -11,6 +11,7 @@ import useAuthContext from '../context/AuthContext';
 import { useLoadingContext } from '../context/LoadingContext';
 import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -32,6 +33,16 @@ const Login = () => {
     login(email, password);
     stopLoading();
   };
+  
+  useEffect(() => {
+    if (errors && Object.keys(errors).length > 0) {
+      Object.values(errors).forEach(error => {
+        const errorMessage = i18n.language === 'en' ? error[0].en : error[0].uk;
+        toast.error(errorMessage);
+      });
+    }
+  }, [errors, i18n.language]);
+  
 
   return (
     <MDBContainer fluid>
@@ -44,11 +55,11 @@ const Login = () => {
 
             <MDBInput wrapperClass='mb-4 mx-5 w-100' label={t('login.emailPlaceholder')} id='formControlLg' type='email' size="lg" onChange={handleEmailChange} />
             {errors.email && <div className='mb-4 mx-5 w-100 error-text'>
-              {errors.email[0]}
+              {i18n.language === 'en' ? errors.email[0].en : errors.email[0].uk}
             </div>}
             <MDBInput wrapperClass='mb-4 mx-5 w-100' label={t('login.passwordPlaceholder')} id='formControlLg' type='password' size="lg" onChange={handlePasswordChange} />
             {errors.password && <div className='mb-4 mx-5 w-100 error-text'>
-              {errors.password[0]}
+              {i18n.language === 'en' ? errors.password[0].en : errors.password[0].uk}
             </div>}
 
             <MDBBtn className="mb-4 px-5 mx-5 w-100" color='info' size='lg' onClick={handleLogin}>{t('login.loginButton')}</MDBBtn>

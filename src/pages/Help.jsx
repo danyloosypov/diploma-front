@@ -6,23 +6,32 @@ import SquadLeadScene from '../components/SquadLeadScene';
 import RiflemanScene from '../components/RiflemanScene';
 import ScoutScene from '../components/ScoutScene';
 import SniperScene from '../components/SniperScene';
+import { useLoadingContext } from '../context/LoadingContext';
+import { toast } from 'react-toastify';
 
 const Help = () => {
   const [gameRoles, setGameRoles] = useState([]);
   const [goals, setGoals] = useState([]);
   const [t, i18n] = useTranslation("global");
+  const { startLoading, stopLoading } = useLoadingContext();
 
   useEffect(() => {
     const fetchData = async () => {
+      startLoading();
       try {
         const roles = await Service.getGameRoles();
         const objectives = await Service.getGoals();
 
         setGameRoles(roles);
         setGoals(objectives);
+        stopLoading();
       } catch (error) {
+        stopLoading();
+        const errorMessage = t('phrazes:somethingWentWrong');
+        toast.error(errorMessage);
         console.error('Error fetching data:', error);
       }
+
     };
 
     fetchData();

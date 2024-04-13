@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import app from "../firebaseConfig";
 import { getDatabase, ref, get} from "firebase/database";
 import Map from '../components/Map';
+import { useLoadingContext } from '../context/LoadingContext';
 
 const Competition = () => {
   const [gameRoles, setGameRoles] = useState([]);
@@ -27,9 +28,11 @@ const Competition = () => {
   const [myVestId, setMyVestId] = useState(null);
   const [hits, setHits] = useState([]);
   const [currentTeamId, setCurrentTeamId] = useState(null);
+  const { startLoading, stopLoading } = useLoadingContext();
 
   useEffect(() => {
     const fetchData = async () => {
+      startLoading();
       try {
         const roles = await Service.getGameRoles();
         const objectives = await Service.getGoals();
@@ -60,8 +63,11 @@ const Competition = () => {
         setGoals(objectives);
 
         setSelectedGoal(objectives[0].id);
-
+        stopLoading();
       } catch (error) {
+        stopLoading();
+        const errorMessage = t('phrazes:somethingWentWrong');
+        toast.error(errorMessage);
         console.error('Error fetching data:', error);
       }
     };
@@ -70,13 +76,13 @@ const Competition = () => {
   }, []);
 
   const fetchFirebaseData = async () => {
+    startLoading();
     const db = getDatabase(app);
     const dbRef = ref(db, "vests/" + myVestId);
     const snapshot = await get(dbRef);
     if (snapshot.exists()) {
       const hitsValues = snapshot.val();
       const sensorData = {};
-      console.log("hitsValues", hitsValues)
 
       for (const key in hitsValues) {
         if (key.startsWith("sensor")) {
@@ -87,8 +93,8 @@ const Competition = () => {
       }
   
       setHits(sensorData); 
-      console.log("sensorData", sensorData)
     }
+    stopLoading();
   };
   
 
@@ -127,7 +133,6 @@ const Competition = () => {
 
   const handleGoalChange = (event) => {
     setSelectedGoal(event.target.value);
-    console.log(event.target.value, selectedGoal)
   };
 
   const handleMapImageChange = (event) => {
@@ -163,7 +168,7 @@ const Competition = () => {
         setSelectedUsers([...selectedUsers, value]);
       }
     } else {
-      console.log('Cannot select this user or gameRole.id = 1 is already selected in the team.');
+      toast.warning("Cannot select this user or gameRole.id = 1 is already selected in the team.")
     }
   };
 
@@ -197,6 +202,7 @@ const Competition = () => {
   };
 
   const createMatch = async () => {
+    startLoading();
     const currentDateTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
     const matchData = {
@@ -210,6 +216,7 @@ const Competition = () => {
     const response = await Service.createMatch(matchData);
     if (response.data.errors)
     {
+      stopLoading();
       const errors = response.data.errors;
 
       const currentLanguage = i18n.language; 
@@ -223,6 +230,7 @@ const Competition = () => {
         }
       }
     } else {
+      stopLoading();
       toast(response.data.message);
 
       setTimeout(() => {
@@ -232,6 +240,7 @@ const Competition = () => {
   };
 
   const stopMatch = async () => {
+    startLoading();
     try {
       if (!matchResult) {
         toast.warning('Please input the match result.');
@@ -241,15 +250,17 @@ const Competition = () => {
       const currentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
   
       const response = await Service.stopMatch(currentCompetition.id, currentTime, matchResult);
-
+      stopLoading();
       toast(response.message);
 
       setTimeout(() => {
         window.location.reload();
       }, 3500);
 
-      console.log(response); 
     } catch (error) {
+      stopLoading();
+      const errorMessage = t('phrazes:somethingWentWrong');
+      toast.error(errorMessage);
       console.error('Error stopping match:', error);
     }
   };

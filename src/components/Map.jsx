@@ -5,22 +5,29 @@ import Service from '../utils/Service';
 import app from "../firebaseConfig";
 import { getDatabase, ref, get, set, push} from "firebase/database";
 import { useTranslation } from 'react-i18next';
+import { useLoadingContext } from '../context/LoadingContext';
+import { toast } from 'react-toastify';
 
 export default function Map({mapUrl, teamId, competitionId}) {
   const { editor, onReady } = useFabricJSEditor();
   const [mapSigns, setMapSigns] = useState([]);
   const [t, i18n] = useTranslation('global');
-
+  const { startLoading, stopLoading } = useLoadingContext();
   const history = [];
   const [color, setColor] = useState("#35363a");
   const [cropImage, setCropImage] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
+      startLoading();
       try {
         const mapSigns = await Service.getMapSigns();
         setMapSigns(mapSigns)
+        stopLoading();
       } catch (error) {
+        stopLoading();
+        const errorMessage = t('phrazes:somethingWentWrong');
+        toast.error(errorMessage);
         console.error('Error fetching data:', error);
       }
     };
@@ -186,15 +193,19 @@ export default function Map({mapUrl, teamId, competitionId}) {
     set(newDocRef, {
       map: json
     }).then(() => {
-      console.log('saved in firebase')
+      toast("Success")
     }).catch((error) => {
+      const errorMessage = t('phrazes:somethingWentWrong');
+      toast.error(errorMessage);
       console.log(error);
     })
     
   };
 
   const loadJson = () => {
+    startLoading();
     fetchFirebaseData();
+    stopLoading();
   };
 
   const fetchFirebaseData = async () => {

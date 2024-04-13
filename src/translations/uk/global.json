@@ -2,7 +2,8 @@
     "phrazes": {
         "submit": "Надіслати",
         "gameRoles": "Командні ролі",
-        "goals": "Задачі"
+        "goals": "Задачі",
+        "somethingWentWrong": "Щось пішло не так. Спробуйте пізніше"
     },
     "notFound": {
         "title": "Упс!!! Сторінка, яку Ви шукаєте не існує",
@@ -39,6 +40,9 @@
         "team": "Команда",
         "result": "Результат:",
         "stopMatchBtn": "Закінчити матч"
+    },
+    "resetPassword": {
+        "title": "Зміна паролю"
     },
     "timer": {
         "hours": "Годин",

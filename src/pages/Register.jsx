@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MDBBtn,
   MDBContainer,
@@ -11,6 +11,8 @@ from 'mdb-react-ui-kit';
 import useAuthContext from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
+import { toast } from 'react-toastify';
+import { useLoadingContext } from '../context/LoadingContext';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -19,6 +21,7 @@ const Register = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const { register, errors } = useAuthContext();
   const [t, i18n] = useTranslation("global");
+  const { startLoading, stopLoading } = useLoadingContext();
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -37,8 +40,19 @@ const Register = () => {
   };
 
   const handleRegister = async () => {
+    startLoading();
     register(name, email, password, passwordConfirmation);
+    stopLoading();
   };
+
+  useEffect(() => {
+    if (errors && Object.keys(errors).length > 0) {
+      Object.values(errors).forEach(error => {
+        const errorMessage = i18n.language === 'en' ? error[0].en : error[0].uk;
+        toast.error(errorMessage);
+      });
+    }
+  }, [errors, i18n.language]);
 
   return (
     <MDBContainer fluid>
@@ -52,20 +66,17 @@ const Register = () => {
 
             <MDBInput wrapperClass='mb-4 mx-5 w-100' label={t('signUp.namePlaceholder')} id='formControlLg' type='text' size="lg" onChange={handleNameChange} />
             {errors.name && <div className='mb-4 mx-5 w-100 error-text'>
-              {errors.name[0]}
+              {i18n.language === 'en' ? errors.name[0].en : errors.name[0].uk}
             </div>}
             <MDBInput wrapperClass='mb-4 mx-5 w-100' label={t('login.emailPlaceholder')} id='formControlLg' type='email' size="lg" onChange={handleEmailChange} />
             {errors.email && <div className='mb-4 mx-5 w-100 error-text'>
-              {errors.email[0]}
+              {i18n.language === 'en' ? errors.email[0].en : errors.email[0].uk}
             </div>}
             <MDBInput wrapperClass='mb-4 mx-5 w-100' label={t('login.passwordPlaceholder')} id='formControlLg' type='password' size="lg" onChange={handlePasswordChange} />
             {errors.password && <div className='mb-4 mx-5 w-100 error-text'>
-              {errors.password[0]}
+              {i18n.language === 'en' ? errors.password[0].en : errors.password[0].uk}
             </div>}
             <MDBInput wrapperClass='mb-4 mx-5 w-100' label={t('signUp.passwordConfirmationPlaceholder')} id='formControlLg' type='password' size="lg" onChange={handlePasswordConfirmationChange} />
-            {errors.password && <div className='mb-4 mx-5 w-100 error-text'>
-              {errors.password[1]}
-            </div>}
 
             <MDBBtn className="mb-4 px-5 mx-5 w-100" color='info' size='lg' onClick={handleRegister} >{t('signUp.signUpBtn')}</MDBBtn>
             <p className='ms-5'>

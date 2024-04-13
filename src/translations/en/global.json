@@ -2,7 +2,8 @@
     "phrazes": {
         "submit": "Submit",
         "gameRoles": "Game roles",
-        "goals": "Goals"
+        "goals": "Goals",
+        "somethingWentWrong": "Something went wrong. try later"
     },
     "notFound": {
         "title": "Ooops!!! The page you are looking for is not found",

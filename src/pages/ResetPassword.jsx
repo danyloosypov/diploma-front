@@ -12,6 +12,8 @@ import { Link, useParams, useSearchParams } from 'react-router-dom';
 import useAuthContext from '../context/AuthContext';
 import Service from '../utils/Service';
 import { useTranslation } from "react-i18next";
+import { toast } from 'react-toastify';
+import { useLoadingContext } from '../context/LoadingContext';
 
 const ResetPassword = () => {
   const [name, setName] = useState('');
@@ -23,6 +25,7 @@ const ResetPassword = () => {
   const [searchParams] = useSearchParams();
   const {token} = useParams();
   const [t, i18n] = useTranslation("global");
+  const { startLoading, stopLoading } = useLoadingContext();
 
   useEffect(() => {
     setEmail(searchParams.get('email'));
@@ -45,6 +48,7 @@ const ResetPassword = () => {
   };
 
   const handleSubmit = async () => {
+    startLoading();
     setErrors([]);
     setStatus(null);
     let response = await Service.resetPassword(email, token, password, passwordConfirmation);
@@ -52,13 +56,24 @@ const ResetPassword = () => {
     if (response.status === 422) {
         setErrors(response.data.errors);
     }
+    stopLoading();
   };
+
+  useEffect(() => {
+    if (errors && Object.keys(errors).length > 0) {
+      Object.values(errors).forEach(error => {
+        const errorMessage = i18n.language === 'en' ? error[0].en : error[0].uk;
+        toast.error(errorMessage);
+      });
+    }
+  }, [errors, i18n.language]);
 
   return (
     <MDBContainer fluid>
       <MDBRow>
-      {status && (<div className=''>
+      {status && (<div style={{"background": "#c6f7a8", "padding": "20px"}} className=''>
         {status}
+        <br></br>
         <Link to="/login">{t('header.loginBtn')}</Link>
       </div>)}
         <MDBCol sm='6'>
@@ -69,20 +84,17 @@ const ResetPassword = () => {
 
             <MDBInput wrapperClass='mb-4 mx-5 w-100' label={t('signUp.namePlaceholder')} id='formControlLg' type='text' size="lg" onChange={handleNameChange} />
             {errors.name && <div className='mb-4 mx-5 w-100 error-text'>
-              {errors.name[0]}
+              {i18n.language === 'en' ? errors.name[0].en : errors.name[0].uk}
             </div>}
             <MDBInput wrapperClass='mb-4 mx-5 w-100' label={t('login.emailPlaceholder')} id='formControlLg' type='email' size="lg" onChange={handleEmailChange} />
             {errors.email && <div className='mb-4 mx-5 w-100 error-text'>
-              {errors.email[0]}
+              {i18n.language === 'en' ? errors.email[0].en : errors.email[0].uk}
             </div>}
             <MDBInput wrapperClass='mb-4 mx-5 w-100' label={t('login.passwordPlaceholder')} id='formControlLg' type='password' size="lg" onChange={handlePasswordChange} />
             {errors.password && <div className='mb-4 mx-5 w-100 error-text'>
-              {errors.password[0]}
+              {i18n.language === 'en' ? errors.password[0].en : errors.password[0].uk}
             </div>}
             <MDBInput wrapperClass='mb-4 mx-5 w-100' label={t('signUp.passwordConfirmationPlaceholder')} id='formControlLg' type='password' size="lg" onChange={handlePasswordConfirmationChange} />
-            {errors.password && <div className='mb-4 mx-5 w-100 error-text'>
-              {errors.password[1]}
-            </div>}
 
             <MDBBtn className="mb-4 px-5 mx-5 w-100" color='info' size='lg' onClick={handleSubmit}>{t('phrazes.submit')}</MDBBtn>
           </div>

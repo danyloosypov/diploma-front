@@ -12,6 +12,7 @@ import useAuthContext from '../context/AuthContext';
 import { useTranslation } from "react-i18next";
 import { MDBAccordion, MDBAccordionItem } from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
+import { useLoadingContext } from '../context/LoadingContext';
 
 const Tabs = () => {
   const [justifyActive, setJustifyActive] = useState('My Competitions');
@@ -21,6 +22,7 @@ const Tabs = () => {
   const [avgGameTime, setAvgGameTime] = useState(null);
   const [userCompetitionsCount, setUserCompetitionsCount] = useState(null);
   const [competitions, setCompetitions] = useState(false);
+  const { startLoading, stopLoading } = useLoadingContext();
 
   const handleJustifyClick = (value: string) => {
     if (value === justifyActive) {
@@ -32,10 +34,12 @@ const Tabs = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      startLoading();
       const competitions = await Service.getCompetitions();
       setCompetitions(competitions['competitions']);
       setAvgGameTime(competitions['avgGameTime']);
       setUserCompetitionsCount(competitions['userCompetitionsCount']);
+      stopLoading();
     };
 
     fetchData();

@@ -10,6 +10,8 @@ import app from "../firebaseConfig";
 import { getDatabase, ref, get} from "firebase/database";
 import Map from '../components/Map';
 import { useLoadingContext } from '../context/LoadingContext';
+import Chat from '../components/Chat';
+import Pusher from "pusher-js";
 
 const Competition = () => {
   const [gameRoles, setGameRoles] = useState([]);
@@ -29,6 +31,41 @@ const Competition = () => {
   const [hits, setHits] = useState([]);
   const [currentTeamId, setCurrentTeamId] = useState(null);
   const { startLoading, stopLoading } = useLoadingContext();
+  const [messages, setMessages] = useState(null);
+
+  const fetchMessages = async () => {
+    const response = await Service.getMessages(currentTeamId);
+    setMessages(response);
+  };
+
+  useEffect(() => {
+    if (currentTeamId)
+    {
+      fetchMessages();
+    }
+  }, [currentCompetition, currentTeamId]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      if (currentCompetition && currentTeamId) {
+        Pusher.logToConsole = false;
+  
+        const pusher = new Pusher('5a89b390ce32d62d3b4a', {
+          cluster: 'eu'
+        });
+        
+        const channel = pusher.subscribe('chat-team-' + currentTeamId);
+        channel.bind('message', async function(data) {
+          var message = JSON.stringify(data['message']);
+          toast(message);
+          await fetchMessages(); // Make sure to await here
+        });
+      }
+    };
+  
+    fetchData();
+  }, [currentCompetition, currentTeamId]);
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,7 +108,7 @@ const Competition = () => {
         console.error('Error fetching data:', error);
       }
     };
-
+    
     fetchData();
   }, []);
 
@@ -398,6 +435,7 @@ const Competition = () => {
               <Map mapUrl={currentCompetition.map} teamId={currentTeamId} competitionId={currentCompetition.id} />
             </div>
           </div>
+          <Chat messages={messages} currentTeamId={currentTeamId} />
         </div>
         <h2 style={{"marginTop": "30px", "textAlign": "center"}}>
           {t('competition.teams')}

@@ -151,7 +151,6 @@ export default class Service {
     static async createMatch(data) {
         try {
             await getCSRFToken();
-            console.log(data);
             const response = await axiosInstance.postForm('/api/competition', data);
             return response;
         } catch (error) {
@@ -197,6 +196,29 @@ export default class Service {
         try {
             await getCSRFToken();
             const response = await axiosInstance.get('/api/map-signs');
+            return response.data;
+        } catch (error) {
+            return error.response;
+        }
+    }
+    
+    static async getMessages(teamId) {
+        try {
+            await getCSRFToken();
+            const response = await axiosInstance.get(`/api/messages?team=${teamId}`);
+            return response.data;
+        } catch (error) {
+            return error.response;
+        }
+    }
+
+    static async sendMessage(message, team) {
+        try {
+            await getCSRFToken();
+            const response = await axiosInstance.post('/api/messages', {
+                message,
+                team
+            });
             return response.data;
         } catch (error) {
             return error.response;

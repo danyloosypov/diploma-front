@@ -18,6 +18,10 @@
         "rightLeg": "Права нога",
         "stomach": "Живіт"
     },
+    "chat": {
+        "btn": "Надіслати",
+        "placeholder": "Повідомлення"
+    },
     "competition": {
         "matchCreation": "Новий матч",
         "matchTitle": "Назва матчу:",

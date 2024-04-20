@@ -16,6 +16,7 @@
     "firebase": "^10.10.0",
     "i18next": "^23.8.2",
     "mdb-react-ui-kit": "^7.1.0",
+    "pusher-js": "^8.4.0-rc2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.2",
     "react-dom": "^18.2.0",

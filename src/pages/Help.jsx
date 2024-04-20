@@ -71,7 +71,7 @@ const Help = () => {
   };
 
   return (
-    <div className='container' style={{"margin-top": "40px", "margin-bottom": "40px"}}>
+    <div className='container' style={{"marginTop": "40px", "marginBottom": "40px"}}>
       <h2>
         {t('phrazes.gameRoles')}
       </h2>
@@ -85,7 +85,7 @@ const Help = () => {
           </MDBAccordionItem>
         ))}
       </MDBAccordion>
-      <h2 style={{"margin-top": "40px"}}>
+      <h2 style={{"marginTop": "40px"}}>
         {t('phrazes.goals')}
       </h2>
       <MDBAccordion initialActive={1}>

@@ -12,6 +12,10 @@
     "resetPassword": {
         "title": "Reset Password"
     },
+    "chat": {
+        "btn": "Send",
+        "placeholder": "Message"
+    },
     "body": {
         "rightChest": "Right chest",
         "leftChest": "Left chest",

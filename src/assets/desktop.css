@@ -243,6 +243,12 @@ header .nav-btn {
     font-weight: bold;
 }
 
+.current-match-teams {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
 .current-match-team {
     border: 1px solid black;
     padding: 20px;

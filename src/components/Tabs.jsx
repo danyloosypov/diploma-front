@@ -125,7 +125,7 @@ const Tabs = () => {
                       <div className='current-match-team' key={index}>
                         <div className='current-match-info-item'>
                           <h3 className='current-match-info-item-title'>
-                          {t('competition.team')} {index + 1}:
+                          {t('competition.team')} {index + 1}: {team.title}
                           </h3>
                           <div className='current-match-info-item-value'>
                             {team.teamTitle}

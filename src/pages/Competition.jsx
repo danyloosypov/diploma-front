@@ -86,16 +86,7 @@ const Competition = () => {
         setCurrentCompetition(currentMatch.competition);
         if (currentMatch.competition != null && currentMatch.competition.game_start) {
           const gameStartTime = new Date(currentMatch.competition.game_start);
-          // Convert the time to the system timezone
-          const zonedTime = toZonedTime(gameStartTime, systemTimeZone);
-          // Format the time as needed
-          const formattedTime = format(zonedTime, 'yyyy-MM-dd HH:mm:ssXXX', { timeZone: systemTimeZone });
-          var offset = new Date(formattedTime).getTimezoneOffset();
-          const adjustedTime = new Date(zonedTime.getTime() - (offset * 60000));
-          const adjustedFormattedTime = format(adjustedTime, 'yyyy-MM-dd HH:mm:ss', { timeZone: systemTimeZone });
-
-          const finalDate = new Date(adjustedFormattedTime)
-          setStartTime(finalDate);
+          setStartTime(convertTimeToLocal(gameStartTime));
         }
 
         if (currentMatch != null && currentMatch.teamId) {
@@ -123,6 +114,20 @@ const Competition = () => {
     
     fetchData();
   }, []);
+
+  const convertTimeToLocal = (time) => {
+    const gameStartTime = new Date(time);
+    // Convert the time to the system timezone
+    const zonedTime = toZonedTime(gameStartTime, systemTimeZone);
+    // Format the time as needed
+    const formattedTime = format(zonedTime, 'yyyy-MM-dd HH:mm:ssXXX', { timeZone: systemTimeZone });
+    var offset = new Date(formattedTime).getTimezoneOffset();
+    const adjustedTime = new Date(zonedTime.getTime() - (offset * 60000));
+    const adjustedFormattedTime = format(adjustedTime, 'yyyy-MM-dd HH:mm:ss', { timeZone: systemTimeZone });
+
+    const finalDate = new Date(adjustedFormattedTime)
+    return finalDate;
+  };
 
   const fetchFirebaseData = async () => {
     const db = getDatabase(app);
@@ -436,7 +441,7 @@ const Competition = () => {
               {t('competition.matchStartedAt')}
             </div>
             <div className='current-match-info-item-value'>
-              {currentCompetition.game_start}
+              {convertTimeToLocal(currentCompetition.game_start).toLocaleString()}
             </div>
           </div>
           <div style={{"flexDirection": "column", "alignItems": "center"}} className='current-match-info-item'>

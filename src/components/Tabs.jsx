@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { MDBAccordion, MDBAccordionItem } from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
 import { useLoadingContext } from '../context/LoadingContext';
+import { format, toDate, toZonedTime } from 'date-fns-tz';
 
 const Tabs = () => {
   const [justifyActive, setJustifyActive] = useState('My Competitions');
@@ -23,6 +24,7 @@ const Tabs = () => {
   const [userCompetitionsCount, setUserCompetitionsCount] = useState(null);
   const [competitions, setCompetitions] = useState(false);
   const { startLoading, stopLoading } = useLoadingContext();
+  const systemTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const handleJustifyClick = (value: string) => {
     if (value === justifyActive) {
@@ -44,6 +46,20 @@ const Tabs = () => {
 
     fetchData();
   }, []);
+
+  const convertTimeToLocal = (time) => {
+    const gameStartTime = new Date(time);
+    // Convert the time to the system timezone
+    const zonedTime = toZonedTime(gameStartTime, systemTimeZone);
+    // Format the time as needed
+    const formattedTime = format(zonedTime, 'yyyy-MM-dd HH:mm:ssXXX', { timeZone: systemTimeZone });
+    var offset = new Date(formattedTime).getTimezoneOffset();
+    const adjustedTime = new Date(zonedTime.getTime() - (offset * 60000));
+    const adjustedFormattedTime = format(adjustedTime, 'yyyy-MM-dd HH:mm:ss', { timeZone: systemTimeZone });
+
+    const finalDate = new Date(adjustedFormattedTime)
+    return finalDate;
+  };
 
   return (
     <div className='container tabs-container'>
@@ -69,7 +85,7 @@ const Tabs = () => {
         <MDBTabsPane open={justifyActive === 'My Competitions'}>
           <MDBAccordion initialActive={1}>
             {competitions && competitions.map((competition, index) => (
-              <MDBAccordionItem key={index} collapseId={index + 1} headerTitle={competition.title + " " + competition.game_start}>
+              <MDBAccordionItem key={index} collapseId={index + 1} headerTitle={competition.title + " " + convertTimeToLocal(competition.game_start).toLocaleString() }>
                 <div className='accordion-competition-content'>
                   <h2 style={{"textAlign": "center"}}>
                     {t('competition.matchInfo')}
@@ -96,7 +112,7 @@ const Tabs = () => {
                         {t('account.matchDuration')}
                       </div>
                       <div className='current-match-info-item-value'>
-                        {competition.game_start} - {competition.game_end}                      
+                        {convertTimeToLocal(competition.game_start).toLocaleString()} - {convertTimeToLocal(competition.game_end).toLocaleString()}                      
                       </div>
                     </div>
                     <div className='current-match-info-item'>

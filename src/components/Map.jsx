@@ -247,7 +247,7 @@ export default function Map({mapUrl, teamId, competitionId}) {
           {t('map.redo')}
         </button>
         <button className="btn btn-outline-danger" onClick={removeSelectedObject} disabled={!cropImage}>
-          {t('map.delete')}я
+          {t('map.delete')}
         </button>
         {mapSigns.map((mapSign, index) => (
           <button className="btn btn-outline-primary" key={index} onClick={() => addMapSign(mapSign)}>

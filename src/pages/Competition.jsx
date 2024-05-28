@@ -12,6 +12,7 @@ import Map from '../components/Map';
 import { useLoadingContext } from '../context/LoadingContext';
 import Chat from '../components/Chat';
 import Pusher from "pusher-js";
+import { format, toDate, toZonedTime } from 'date-fns-tz';
 
 const Competition = () => {
   const [gameRoles, setGameRoles] = useState([]);
@@ -32,6 +33,7 @@ const Competition = () => {
   const [currentTeamId, setCurrentTeamId] = useState(null);
   const { startLoading, stopLoading } = useLoadingContext();
   const [messages, setMessages] = useState(null);
+  const systemTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const fetchMessages = async () => {
     const response = await Service.getMessages(currentTeamId);
@@ -83,7 +85,17 @@ const Competition = () => {
         const currentMatch = await Service.getCurrentMatch();
         setCurrentCompetition(currentMatch.competition);
         if (currentMatch.competition != null && currentMatch.competition.game_start) {
-          setStartTime(new Date(currentMatch.competition.game_start));
+          const gameStartTime = new Date(currentMatch.competition.game_start);
+          // Convert the time to the system timezone
+          const zonedTime = toZonedTime(gameStartTime, systemTimeZone);
+          // Format the time as needed
+          const formattedTime = format(zonedTime, 'yyyy-MM-dd HH:mm:ssXXX', { timeZone: systemTimeZone });
+          var offset = new Date(formattedTime).getTimezoneOffset();
+          const adjustedTime = new Date(zonedTime.getTime() - (offset * 60000));
+          const adjustedFormattedTime = format(adjustedTime, 'yyyy-MM-dd HH:mm:ss', { timeZone: systemTimeZone });
+
+          const finalDate = new Date(adjustedFormattedTime)
+          setStartTime(finalDate);
         }
 
         if (currentMatch != null && currentMatch.teamId) {

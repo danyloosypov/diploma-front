@@ -246,6 +246,14 @@ export default function Map({mapUrl, teamId, competitionId}) {
         <button className="btn btn-outline-secondary" onClick={redo} disabled={!cropImage}>
           {t('map.redo')}
         </button>
+        <label disabled={!cropImage}>
+          <input
+            disabled={!cropImage}
+            type="color"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+          />
+        </label>
         <button className="btn btn-outline-danger" onClick={removeSelectedObject} disabled={!cropImage}>
           {t('map.delete')}
         </button>

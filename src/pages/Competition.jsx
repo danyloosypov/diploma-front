@@ -78,6 +78,8 @@ const Competition = () => {
         const fetchedUsers = await Service.getUsers();
         const myVestId = await Service.getVestId();
 
+        console.log(myVestId)
+
         if (myVestId.data.vest_id) {
           setMyVestId(myVestId.data.vest_id);
         }
